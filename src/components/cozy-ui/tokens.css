@@ -1,0 +1,36 @@
+/* Design tokens extracted from Figma: Personal Productivity Capy App — Design System */
+/* https://www.figma.com/design/J8NYRY4863ADctpSJErZ25/Personal-Productivity-Capy-App?node-id=0-1 */
+
+:root {
+  /* Brand colors */
+  --color-brand-brown: #823d00;
+  --color-brand-black: #000000;
+  --color-brand-white: #ffffff;
+  --color-brand-grey: rgba(0, 0, 0, 0.54);
+
+  /* Capy colors */
+  --color-capy-body: #facc9e;
+  --color-capy-nose: #cf9171;
+
+  /* Button colors */
+  --color-button-primary: #f6f6f6;
+  --color-button-secondary: #e7e7e7;
+
+  /* Accent colors */
+  --color-red-primary: #df7676;
+  --color-red-secondary: #e99c9c;
+  --color-yellow-primary: #ffc519;
+  --color-yellow-secondary: #ffe493;
+  --color-green-primary: #72d16d;
+  --color-green-secondary: #ade3aa;
+  --color-blue-primary: #6db3d1;
+  --color-blue-secondary: #94c6dc;
+
+  /* Typography */
+  --font-display: 'SF Pro Rounded', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Hand-drawn / dynamic strokes (used on outlined shapes, dialogue bubbles) */
+  --stroke-width-1: 1px;
+  --stroke-width-2: 2px;
+}
