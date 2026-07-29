@@ -1,0 +1,64 @@
+/*
+ * Figma's "Dynamic Stroke" annotations (e.g. "F75 W30 S50") describe axes on a
+ * custom SF Pro Rounded variable-font build that isn't available outside
+ * Figma. Weight is approximated with the standard font-weight scale below;
+ * the fill/stroke axes have no CSS equivalent and are dropped.
+ */
+
+.mainTimerNumber {
+  font-family: var(--font-display);
+  font-weight: 100;
+  font-size: 48px;
+  color: var(--color-brand-brown);
+}
+
+.secondaryTimerNumber {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: 20px;
+  color: var(--color-brand-brown);
+  text-align: center;
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 100;
+  font-size: 20px;
+  color: var(--color-brand-brown);
+  text-align: center;
+}
+
+.heading1 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-brand-black);
+}
+
+.heading2 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-brand-black);
+}
+
+.body1 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-brand-black);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-brand-grey);
+}
+
+.bodyNumberDisplay {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: 12px;
+  color: var(--color-brand-brown);
+}

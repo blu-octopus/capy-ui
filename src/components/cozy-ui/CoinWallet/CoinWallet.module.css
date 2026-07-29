@@ -1,0 +1,56 @@
+.wallet {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding-left: 24px;
+}
+
+.coin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+}
+
+.fill {
+  position: absolute;
+  inset: 2px;
+}
+
+.sign {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-brand-brown);
+}
+
+/*
+ * The Figma note says the wallet pill grows with the digit count rather than
+ * clipping or wrapping, so the amount just sets its own width via ch units.
+ */
+.pill {
+  box-sizing: border-box;
+  height: 19px;
+  min-width: 24px;
+  padding: 0 8px 0 16px;
+  margin-left: -12px;
+  border: 1px solid var(--color-brand-brown);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-brand-brown);
+  white-space: nowrap;
+}

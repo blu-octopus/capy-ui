@@ -1,0 +1,19 @@
+.list {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.swatch {
+  all: unset;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.swatch[data-checked] {
+  outline: 1px solid var(--color-brand-brown);
+  outline-offset: 1px;
+}
