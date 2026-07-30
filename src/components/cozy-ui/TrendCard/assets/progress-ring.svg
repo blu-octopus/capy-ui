@@ -1,0 +1,22 @@
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="12" height="12" fill="#F5F5F5"/>
+<g id="Deisgn System">
+<rect width="1523" height="1673" transform="translate(-773.045 -1073.44)" fill="#F1EBD8"/>
+<rect width="1523" height="1673" transform="translate(-773.045 -1073.44)" fill="white"/>
+<g id="Group 38">
+<g id="Frame 17">
+<g id="Group 29">
+<g id="Mask group">
+<mask id="mask0_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="12">
+<path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 2.25C3.92893 2.25 2.25 3.92893 2.25 6C2.25 8.07107 3.92893 9.75 6 9.75C8.07107 9.75 9.75 8.07107 9.75 6C9.75 3.92893 8.07107 2.25 6 2.25Z" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_0_1)">
+<circle id="Ellipse 12" cx="6" cy="6" r="6" fill="#D9D9D9"/>
+<path id="Ellipse 13" d="M12 6C12 4.81331 11.6481 3.65327 10.9888 2.66658C10.3295 1.67988 9.39246 0.910849 8.2961 0.456723C7.19974 0.002597 5.99334 -0.116223 4.82946 0.115288C3.66557 0.3468 2.59647 0.918244 1.75736 1.75736C0.918244 2.59647 0.3468 3.66557 0.115288 4.82946C-0.116223 5.99334 0.00259702 7.19974 0.456723 8.2961C0.910849 9.39246 1.67988 10.3295 2.66658 10.9888C3.65327 11.6481 4.81331 12 6 12V6H12Z" fill="#72D16D"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

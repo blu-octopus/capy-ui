@@ -1,0 +1,20 @@
+<svg width="250" height="114" viewBox="0 0 250 114" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="250" height="114" fill="#F5F5F5"/>
+<g id="Deisgn System">
+<rect width="1523" height="1673" transform="translate(-1154 -1327)" fill="#F1EBD8"/>
+<rect width="1523" height="1673" transform="translate(-1154 -1327)" fill="white"/>
+<g id="Group 40">
+<g id="Group 33">
+<g id="graph">
+<line id="Line 18" x1="1" y1="1" x2="0.999995" y2="111" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<line id="Line 19" x1="249" y1="113" x2="1" y2="113" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path id="Rectangle 53" d="M12 87C12 84.7909 13.7909 83 16 83H25C27.2091 83 29 84.7909 29 87V112H12V87Z" fill="#72D16D"/>
+<path id="Rectangle 54" d="M113 105C113 102.791 114.791 101 117 101H126C128.209 101 130 102.791 130 105V112H113V105Z" fill="#72D16D"/>
+<path id="Rectangle 55" d="M212 71C212 68.7909 213.791 67 216 67H225C227.209 67 229 68.7909 229 71V112H212V71Z" fill="#72D16D"/>
+<path id="Rectangle 56" d="M162 57C162 54.7909 163.791 53 166 53H175C177.209 53 179 54.7909 179 57V112H162V57Z" fill="#72D16D"/>
+<path id="Rectangle 57" d="M62 99C62 96.7909 63.7909 95 66 95H75C77.2091 95 79 96.7909 79 99V112H62V99Z" fill="#72D16D"/>
+</g>
+</g>
+</g>
+</g>
+</svg>
