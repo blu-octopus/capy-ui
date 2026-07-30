@@ -58,7 +58,9 @@ ${body}
 }
 
 const targets = [
-  { dir: 'CoinWallet', asset: 'coin.svg', name: 'CoinIcon' },
+  { dir: 'CoinWallet', asset: 'ellipse1.svg', name: 'CoinRingIcon' },
+  { dir: 'CoinWallet', asset: 'ellipse2.svg', name: 'CoinInnerIcon' },
+  { dir: 'CoinWallet', asset: 'coin-symbol.svg', name: 'CoinSymbolIcon' },
   { dir: 'Locked', asset: 'lock.svg', name: 'LockedIcon' },
   { dir: 'CapyMascot', asset: 'mascot.svg', name: 'CapyMascotIcon' },
   { dir: 'CapyMascot', asset: 'mascot-rough.svg', name: 'CapyMascotRoughIcon' },

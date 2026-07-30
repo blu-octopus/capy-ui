@@ -1,3 +1,21 @@
+/*
+ * The three layers (outer ring, inner ring, $ symbol) are each their own
+ * hand-drawn export with their own stroke wobble — Ellipse 2's inner ring
+ * is not a smooth circle, it has the same Dynamic-stroke wobble as the
+ * outer ring. All three are authored concentric on the same center point,
+ * so centering each absolutely keeps them aligned regardless of the
+ * asymmetric padding each individual export carries.
+ */
 .coin {
+  position: relative;
   display: inline-flex;
+  width: var(--size);
+  height: var(--size);
+}
+
+.layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
