@@ -11,12 +11,14 @@ A cozy-themed React component library, built to make things cute while staying m
 
 ## Getting started
 
-```bash
-npm install
-npm run storybook
-```
+### Opening Storybook
 
-Storybook opens at **[localhost:6006](http://localhost:6006)** with every component's stories. `npm run typecheck` runs a strict `tsc --noEmit` pass; `npm run build-storybook` produces a static build for deployment.
+1. Install dependencies: `npm install`
+2. Start Storybook: `npm run storybook`
+3. It launches automatically in your browser; if it doesn't, open **[http://localhost:6006](http://localhost:6006)** yourself.
+4. Use the **CozyUI** group in the left sidebar to browse every component — each one's stories show its states/variants side by side.
+
+Other scripts: `npm run typecheck` runs a strict `tsc --noEmit` pass; `npm run build-storybook` produces a static Storybook build for deployment (e.g. to GitHub Pages or Chromatic — not wired up yet).
 
 ## Components
 
