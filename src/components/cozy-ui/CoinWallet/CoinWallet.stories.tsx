@@ -22,6 +22,7 @@ export const GrowsWithDigitCount: Story = {
       <CoinWallet amount={920} />
       <CoinWallet amount={3230} />
       <CoinWallet amount={78160} />
+      <CoinWallet amount={100000} />
     </div>
   ),
 };
