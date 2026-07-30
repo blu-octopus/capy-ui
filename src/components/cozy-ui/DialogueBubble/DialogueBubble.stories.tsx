@@ -24,10 +24,6 @@ export const WidthTracksContent: Story = {
   ),
 };
 
-export const WithoutTail: Story = {
-  args: { children: 'just a pill', showTail: false },
-};
-
 export const TailPositions: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
@@ -36,6 +32,21 @@ export const TailPositions: Story = {
           tail at {offset}%
         </DialogueBubble>
       ))}
+    </div>
+  ),
+};
+
+/**
+ * Like a tooltip arrow, the tail is clamped to the straight run between the
+ * two rounded end-caps — it can never point into the curved corner, even at
+ * 0%/100% or on a bubble too narrow to fit the requested offset.
+ */
+export const TailClampsLikeATooltip: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
+      <DialogueBubble tailOffset={0}>tail asked for 0%</DialogueBubble>
+      <DialogueBubble tailOffset={100}>tail asked for 100%</DialogueBubble>
+      <DialogueBubble tailOffset={50}>hi</DialogueBubble>
     </div>
   ),
 };

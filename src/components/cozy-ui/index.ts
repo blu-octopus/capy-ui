@@ -1,5 +1,6 @@
 export * from './BarChart';
 export * from './BatteryIndicator';
+export * from './Bubble';
 export * from './Button';
 export * from './CapyMascot';
 export * from './Checkbox';
