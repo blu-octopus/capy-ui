@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BackIcon, NextIcon, PlayIcon, RestartIcon, ReturnIcon, SkipIcon, StatsIcon } from './index';
+import { BackIcon, NextIcon, PauseIcon, PlayIcon, RestartIcon, ReturnIcon, SkipIcon, StatsIcon } from './index';
 
 const meta: Meta = {
   title: 'CozyUI/Icons',
@@ -13,6 +13,7 @@ const icons = [
   { name: 'return', Icon: ReturnIcon },
   { name: 'restart', Icon: RestartIcon },
   { name: 'play', Icon: PlayIcon },
+  { name: 'pause', Icon: PauseIcon },
   { name: 'skip', Icon: SkipIcon },
   { name: 'back', Icon: BackIcon },
   { name: 'next', Icon: NextIcon },

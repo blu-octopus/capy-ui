@@ -9,16 +9,12 @@
   cursor: pointer;
 }
 
-.root[data-checked] {
-  border-color: transparent;
-}
-
 .indicator {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 16px;
-  height: 12px;
+  width: 13.74px;
+  height: 14px;
   transform: translate(-50%, -50%);
   color: var(--color-brand-brown);
   pointer-events: none;

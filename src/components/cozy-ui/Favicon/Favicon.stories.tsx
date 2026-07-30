@@ -14,6 +14,7 @@ export const Sizes: Story = {
     <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
       <Favicon size={16} />
       <Favicon size={48} />
+      <Favicon size={128} />
     </div>
   ),
 };
