@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { CoinRingIcon } from './CoinRingIcon';
-import { CoinFillIcon } from './CoinFillIcon';
+import { CoinIcon } from './CoinIcon';
 import styles from './CoinWallet.module.css';
 
 export interface CoinWalletProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -14,11 +13,7 @@ export const CoinWallet = React.forwardRef<HTMLDivElement, CoinWalletProps>(func
 ) {
   return (
     <div ref={ref} className={[styles.wallet, className].filter(Boolean).join(' ')} {...props}>
-      <div className={styles.coin} aria-hidden>
-        <CoinRingIcon className={styles.ring} />
-        <CoinFillIcon className={styles.fill} />
-        <span className={styles.sign}>$</span>
-      </div>
+      <CoinIcon className={styles.coin} width={24} height={24} aria-hidden />
       <span className={styles.pill}>{amount}</span>
     </div>
   );
