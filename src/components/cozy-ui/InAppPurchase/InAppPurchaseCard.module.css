@@ -1,22 +1,28 @@
+/*
+ * Positions below are lifted directly from Figma's own node coordinates
+ * (group 357:494), not a generic stacking formula — the featured tier's
+ * 3-coin arrangement and the ribbon placement are bespoke to that one card,
+ * not a reusable N-coin layout.
+ */
 .card {
   position: relative;
   box-sizing: border-box;
   width: 88px;
-  padding: 17px 0 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
 }
 
-.card.featured {
-  border: 1.5px solid var(--color-brand-brown);
-  border-radius: 10px;
+/* Plain tiers (1,000 / 2,000): no card chrome, just floating coins + labels. */
+.plain {
+  padding: 17px 0 15px;
+  gap: 6px;
 }
 
 .coins {
   position: relative;
   height: 36px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,18 +32,14 @@
   position: relative;
 }
 
-/* Stacked coins overlap from back to front, offsetting up and to the side. */
-.coins > *:not(:only-child):nth-child(1) {
-  transform: translate(-8px, 4px);
+/* The two-coin tier overlaps by exactly half a coin width (18px of 36px). */
+.coins[data-count='2'] > *:first-child {
+  transform: translateX(9px);
   z-index: 1;
 }
-.coins > *:not(:only-child):nth-child(2) {
-  transform: translate(8px, 4px);
+.coins[data-count='2'] > *:last-child {
+  transform: translateX(-9px);
   z-index: 2;
-}
-.coins > *:not(:only-child):nth-child(3) {
-  transform: translate(0, -6px);
-  z-index: 3;
 }
 
 .amount {
@@ -53,17 +55,70 @@
   color: var(--color-brand-grey);
 }
 
+/* Featured tier (10,000): fixed box matching Figma's card exactly, with the
+   ribbon clipped at the corner by overflow: hidden. */
+.featured {
+  height: 119px;
+  border: 1.5px solid var(--color-brand-brown);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .ribbon {
   position: absolute;
-  top: -6px;
-  right: -10px;
-  padding: 3px 10px;
-  background: var(--color-red-primary);
-  color: var(--color-brand-white);
+  left: 30.89px;
+  top: -10.14px;
+  width: 63.04px;
+  height: 37.96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ribbon svg {
+  transform: rotate(20deg);
+}
+
+.ribbonText {
+  position: absolute;
+  /* Centered on the rotated ribbon graphic's actual on-screen bounding box. */
+  left: 63.9px;
+  top: 10.34px;
+  transform: translate(-50%, -50%) rotate(24deg);
   font-family: cursive;
   font-style: italic;
-  font-size: 12px;
-  border-radius: 4px;
-  transform: rotate(22deg);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--color-brand-white);
+  white-space: nowrap;
+}
+
+.featuredCoins {
+  position: relative;
+  width: 100%;
+  height: 70px;
+}
+
+.featuredCoin {
+  position: absolute;
+  width: 37.5px;
+  height: 37.5px;
+}
+
+.featuredAmount {
+  composes: amount;
+  position: absolute;
+  left: 45px;
+  top: 70px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.featuredPrice {
+  composes: price;
+  position: absolute;
+  left: 45px;
+  top: 100px;
+  transform: translateX(-50%);
   white-space: nowrap;
 }
