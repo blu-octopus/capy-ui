@@ -1,23 +1,28 @@
-export * from './BarChart';
-export * from './BatteryIndicator';
-export * from './Bubble';
-export * from './Button';
-export * from './CapyMascot';
-export * from './Checkbox';
-export * from './ColorPicker';
-export * from './CoinWallet';
-export * from './DailyStreaks';
-export * from './DialogueBubble';
-export * from './Favicon';
-export * from './Field';
-export * from './icons';
-export * from './InAppPurchase';
-export * from './Locked';
-export * from './Modal';
-export * from './PieChart';
-export * from './ProgressRing';
-export * from './Text';
-export * from './TimeTabs';
-export * from './TimerToggle';
-export * from './Toggle';
-export * from './TrendCard';
+// Atoms
+export * from './atoms/BatteryIndicator';
+export * from './atoms/Bubble';
+export * from './atoms/Button';
+export * from './atoms/CapyMascot';
+export * from './atoms/Checkbox';
+export * from './atoms/Favicon';
+export * from './atoms/icons';
+export * from './atoms/Locked';
+export * from './atoms/ProgressRing';
+export * from './atoms/Text';
+export * from './atoms/Toggle';
+
+// Molecules
+export * from './molecules/ColorPicker';
+export * from './molecules/CoinWallet';
+export * from './molecules/DailyStreaks';
+export * from './molecules/DialogueBubble';
+export * from './molecules/Field';
+export * from './molecules/TimeTabs';
+export * from './molecules/TimerToggle';
+
+// Organisms
+export * from './organisms/BarChart';
+export * from './organisms/InAppPurchase';
+export * from './organisms/Modal';
+export * from './organisms/PieChart';
+export * from './organisms/TrendCard';

@@ -18,43 +18,61 @@ A cozy-themed React component library, built to make things cute while staying m
 3. It launches automatically in your browser; if it doesn't, open **[http://localhost:6006](http://localhost:6006)** yourself.
 4. Use the **CozyUI** group in the left sidebar to browse every component — each one's stories show its states/variants side by side.
 
-Other scripts: `npm run typecheck` runs a strict `tsc --noEmit` pass; `npm run build-storybook` produces a static Storybook build for deployment (e.g. to GitHub Pages or Chromatic — not wired up yet).
+Other scripts: `npm run typecheck` runs a strict `tsc --noEmit` pass; `npm run build-storybook` produces a static Storybook build, which [`.github/workflows/deploy-storybook.yml`](.github/workflows/deploy-storybook.yml) deploys automatically to GitHub Pages on every push to `main`.
+
+### Hosted Storybook
+
+**[blu-octopus.github.io/capy-ui](https://blu-octopus.github.io/capy-ui/)** — browse every component without installing anything.
 
 ## Components
 
-All components live under [`src/components/cozy-ui`](src/components/cozy-ui) and are re-exported from its [`index.ts`](src/components/cozy-ui/index.ts), so consumers can do:
+All components live under [`src/components/cozy-ui`](src/components/cozy-ui), organized into `atoms/`, `molecules/`, and `organisms/` per [Brad Frost's atomic design system](https://atomicdesign.bradfrost.com/) (grouped by actual composition, not just visual complexity), and are re-exported from its [`index.ts`](src/components/cozy-ui/index.ts), so consumers can do:
 
 ```tsx
 import { Button, Checkbox, DialogueBubble } from 'capy-ui/src/components/cozy-ui';
 ```
 
-Every component has a co-located `.stories.tsx` — run Storybook and browse the **CozyUI** sidebar group, or jump straight to one:
+Every component has a co-located `.stories.tsx` — browse the **CozyUI** sidebar group on the [hosted Storybook](https://blu-octopus.github.io/capy-ui/) (or your local one), which mirrors this same Atoms/Molecules/Organisms grouping, or jump straight to one:
+
+### Atoms
 
 | Component | Story |
 |---|---|
-| [Button](src/components/cozy-ui/Button) | [Storybook](http://localhost:6006/?path=/story/cozyui-button--default) |
-| [Checkbox](src/components/cozy-ui/Checkbox) | [Storybook](http://localhost:6006/?path=/story/cozyui-checkbox--default) |
-| [Toggle](src/components/cozy-ui/Toggle) | [Storybook](http://localhost:6006/?path=/story/cozyui-toggle--default) |
-| [Text](src/components/cozy-ui/Text) (type scale) | [Storybook](http://localhost:6006/?path=/story/cozyui-text--type-scale) |
-| [icons](src/components/cozy-ui/icons) (stats, return, restart, play, pause, skip, back, next) | [Storybook](http://localhost:6006/?path=/story/cozyui-icons--all-icons) |
-| [Favicon](src/components/cozy-ui/Favicon) | [Storybook](http://localhost:6006/?path=/story/cozyui-favicon--sizes) |
-| [CapyMascot](src/components/cozy-ui/CapyMascot) | [Storybook](http://localhost:6006/?path=/story/cozyui-capymascot--both-variants) |
-| [CoinWallet](src/components/cozy-ui/CoinWallet) (+ `Coin`) | [Storybook](http://localhost:6006/?path=/story/cozyui-coinwallet--grows-with-digit-count) |
-| [DialogueBubble](src/components/cozy-ui/DialogueBubble) | [Storybook](http://localhost:6006/?path=/story/cozyui-dialoguebubble--width-tracks-content) |
-| [Locked](src/components/cozy-ui/Locked) | [Storybook](http://localhost:6006/?path=/story/cozyui-locked--default) |
-| [BatteryIndicator](src/components/cozy-ui/BatteryIndicator) | [Storybook](http://localhost:6006/?path=/story/cozyui-batteryindicator--all-variants) |
-| [TimeTabs](src/components/cozy-ui/TimeTabs) | [Storybook](http://localhost:6006/?path=/story/cozyui-timetabs--default) |
-| [TimerToggle](src/components/cozy-ui/TimerToggle) | [Storybook](http://localhost:6006/?path=/story/cozyui-timertoggle--count-up) |
-| [ColorPicker](src/components/cozy-ui/ColorPicker) | [Storybook](http://localhost:6006/?path=/story/cozyui-colorpicker--default) |
-| [Field](src/components/cozy-ui/Field) | [Storybook](http://localhost:6006/?path=/story/cozyui-field--default) |
-| [Modal](src/components/cozy-ui/Modal) | [Storybook](http://localhost:6006/?path=/story/cozyui-modal--default) |
-| [TrendCard](src/components/cozy-ui/TrendCard) (+ `ProgressRing`) | [Storybook](http://localhost:6006/?path=/story/cozyui-trendcard--grid) |
-| [PieChart](src/components/cozy-ui/PieChart) | [Storybook](http://localhost:6006/?path=/story/cozyui-piechart--default) |
-| [BarChart](src/components/cozy-ui/BarChart) | [Storybook](http://localhost:6006/?path=/story/cozyui-barchart--default) |
-| [InAppPurchaseCard](src/components/cozy-ui/InAppPurchase) | [Storybook](http://localhost:6006/?path=/story/cozyui-inapppurchasecard--tiers) |
-| [DailyStreaks](src/components/cozy-ui/DailyStreaks) | [Storybook](http://localhost:6006/?path=/story/cozyui-dailystreaks--default) |
+| [Text](src/components/cozy-ui/atoms/Text) (type scale) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-text--type-scale) |
+| [Button](src/components/cozy-ui/atoms/Button) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-button--all-variants) |
+| [Bubble](src/components/cozy-ui/atoms/Bubble) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-bubble--default) |
+| [Checkbox](src/components/cozy-ui/atoms/Checkbox) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-checkbox--default) |
+| [Toggle](src/components/cozy-ui/atoms/Toggle) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-toggle--default) |
+| [Favicon](src/components/cozy-ui/atoms/Favicon) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-favicon--sizes) |
+| [CapyMascot](src/components/cozy-ui/atoms/CapyMascot) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-capymascot--both-variants) |
+| [ProgressRing](src/components/cozy-ui/atoms/ProgressRing) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-progressring--default) |
+| [Locked](src/components/cozy-ui/atoms/Locked) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-locked--default) |
+| [icons](src/components/cozy-ui/atoms/icons) (stats, return, restart, play, pause, skip, back, next) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-icons--all-icons) |
+| [BatteryIndicator](src/components/cozy-ui/atoms/BatteryIndicator) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-atoms-batteryindicator--all-variants) |
 
-> Storybook links above only resolve once `npm run storybook` is running locally — there's no hosted deployment yet.
+### Molecules
+
+| Component | Story |
+|---|---|
+| [CoinWallet](src/components/cozy-ui/molecules/CoinWallet) (+ `Coin`) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-coinwallet--grows-with-digit-count) |
+| [ColorPicker](src/components/cozy-ui/molecules/ColorPicker) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-colorpicker--default) |
+| [DailyStreaks](src/components/cozy-ui/molecules/DailyStreaks) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-dailystreaks--default) |
+| [DialogueBubble](src/components/cozy-ui/molecules/DialogueBubble) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-dialoguebubble--width-tracks-content) |
+| [Field](src/components/cozy-ui/molecules/Field) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-field--default) |
+| [TimeTabs](src/components/cozy-ui/molecules/TimeTabs) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-timetabs--default) |
+| [TimerToggle](src/components/cozy-ui/molecules/TimerToggle) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-molecules-timertoggle--count-up) |
+
+### Organisms
+
+| Component | Story |
+|---|---|
+| [Modal](src/components/cozy-ui/organisms/Modal) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-organisms-modal--default) |
+| [InAppPurchaseCard](src/components/cozy-ui/organisms/InAppPurchase) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-organisms-inapppurchasecard--tiers) |
+| [TrendCard](src/components/cozy-ui/organisms/TrendCard) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-organisms-trendcard--grid) |
+| [PieChart](src/components/cozy-ui/organisms/PieChart) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-organisms-piechart--default) |
+| [BarChart](src/components/cozy-ui/organisms/BarChart) | [Storybook](https://blu-octopus.github.io/capy-ui/?path=/story/cozyui-organisms-barchart--default) |
+
+> Swap `blu-octopus.github.io/capy-ui` for `localhost:6006` in any link above to open the same story against a local `npm run storybook`.
 
 ## Usage guidelines
 
