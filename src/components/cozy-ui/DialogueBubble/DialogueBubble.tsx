@@ -139,12 +139,22 @@ export const DialogueBubble = React.forwardRef<HTMLDivElement, DialogueBubblePro
                 <feDisplacementMap in="SourceGraphic" in2="noise" scale={2.8} xChannelSelector="R" yChannelSelector="G" />
               </filter>
             </defs>
+            {/*
+              Two separate paths: a solid fill (no stroke) whose top edge sits
+              above the visible box, hidden under the bubble's own overlap, and
+              a stroke-only path that draws just the two slanted sides — never
+              the top edge, which would otherwise draw a second, redundant line
+              (and a sliver of white) right where the tail is meant to read as
+              one continuous outline with the bubble.
+            */}
+            <path d={`M0 -3 L${TAIL_SIZE} -3 L${TAIL_SIZE / 2} ${TAIL_SIZE - 1} Z`} fill="var(--color-brand-white)" />
             <path
-              d={`M2 0 L${TAIL_SIZE - 2} 0 L${TAIL_SIZE / 2} ${TAIL_SIZE - 1} Z`}
-              fill="var(--color-brand-white)"
+              d={`M2 0 L${TAIL_SIZE / 2} ${TAIL_SIZE - 1} L${TAIL_SIZE - 2} 0`}
+              fill="none"
               stroke="var(--color-brand-brown)"
               strokeWidth={BUBBLE_STROKE_WIDTH}
               strokeLinejoin="round"
+              strokeLinecap="round"
               filter={`url(#${filterId})`}
             />
           </svg>
