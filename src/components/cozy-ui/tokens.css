@@ -1,6 +1,11 @@
 /* Design tokens extracted from Figma: Personal Productivity Capy App — Design System */
 /* https://www.figma.com/design/J8NYRY4863ADctpSJErZ25/Personal-Productivity-Capy-App?node-id=0-1 */
 
+/* SF Pro Rounded is an Apple system font and can't be shipped as a web font.
+   M PLUS Rounded 1c is a free, genuinely rounded stand-in, so --font-display
+   doesn't silently fall through to system-ui on non-Apple browsers. */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400&display=swap');
+
 :root {
   /* Brand colors */
   --color-brand-brown: #823d00;
@@ -28,7 +33,7 @@
   --color-grey-primary: #bebebe;
 
   /* Typography */
-  --font-display: 'SF Pro Rounded', ui-rounded, system-ui, sans-serif;
+  --font-display: 'M PLUS Rounded 1c', 'SF Pro Rounded', ui-rounded, system-ui, sans-serif;
   --font-body: 'Inter', sans-serif;
 
   /* Hand-drawn / dynamic strokes (used on outlined shapes, dialogue bubbles) */

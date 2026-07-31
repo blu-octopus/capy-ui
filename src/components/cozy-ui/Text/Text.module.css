@@ -7,14 +7,14 @@
 
 .mainTimerNumber {
   font-family: var(--font-display);
-  font-weight: 100;
+  font-weight: 400;
   font-size: 48px;
   color: var(--color-brand-brown);
 }
 
 .secondaryTimerNumber {
   font-family: var(--font-display);
-  font-weight: 200;
+  font-weight: 300;
   font-size: 20px;
   color: var(--color-brand-brown);
   text-align: center;
@@ -22,7 +22,7 @@
 
 .h1 {
   font-family: var(--font-display);
-  font-weight: 100;
+  font-weight: 400;
   font-size: 20px;
   color: var(--color-brand-brown);
   text-align: center;
@@ -58,7 +58,7 @@
 
 .bodyNumberDisplay {
   font-family: var(--font-display);
-  font-weight: 200;
+  font-weight: 300;
   font-size: 12px;
   color: var(--color-brand-brown);
 }

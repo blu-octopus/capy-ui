@@ -31,3 +31,17 @@ export const TypeScale: Story = {
     </div>
   ),
 };
+
+const dynamicStrokeVariants: TextVariant[] = ['mainTimerNumber', 'secondaryTimerNumber', 'h1'];
+
+export const DynamicStroke: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+      {dynamicStrokeVariants.map((variant) => (
+        <Text key={variant} variant={variant}>
+          {sample[variant]}
+        </Text>
+      ))}
+    </div>
+  ),
+};
