@@ -1,3 +1,9 @@
+@property --draw {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
 .root {
   all: unset;
   position: relative;
@@ -18,4 +24,21 @@
   transform: translate(-50%, -50%);
   color: var(--color-brand-brown);
   pointer-events: none;
+  --draw: 1;
+  transition: --draw 240ms ease;
+}
+
+/* The single mount frame (enter) and the whole exit transition both target
+   the undrawn state, so the checkmark always animates rather than snapping. */
+.indicator[data-starting-style],
+.indicator[data-ending-style] {
+  --draw: 0;
+}
+
+/* pathLength={1} on CheckIcon's path normalizes its length to 1 unit, so the
+   dash animation is driven purely by --draw regardless of the path's actual
+   on-screen curve length. */
+.indicator svg path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--draw));
 }

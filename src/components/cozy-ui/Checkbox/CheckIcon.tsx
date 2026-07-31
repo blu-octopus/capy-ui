@@ -9,6 +9,7 @@ export function CheckIcon(props: SVGProps<SVGSVGElement>) {
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
+        pathLength={1}
       />
     </svg>
   );
