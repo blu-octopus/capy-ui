@@ -6,13 +6,7 @@
 
 .tail {
   position: absolute;
-  /* Overlap the pill's bottom stroke so the two hand-drawn lines meet. */
-  top: calc(100% - 6px);
-  width: 42px;
-  height: 43px;
-  margin-left: -21px;
-  background-image: url('./assets/dialogue-bubble-tail.svg');
-  background-repeat: no-repeat;
-  background-size: 42px 43px;
+  transform-origin: center;
+  overflow: visible;
   pointer-events: none;
 }

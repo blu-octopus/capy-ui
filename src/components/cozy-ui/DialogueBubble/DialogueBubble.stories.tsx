@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DialogueBubble } from './DialogueBubble';
+import { DialogueBubble, type DialogueBubblePlacement } from './DialogueBubble';
 
 const meta: Meta<typeof DialogueBubble> = {
   title: 'CozyUI/DialogueBubble',
@@ -24,29 +24,46 @@ export const WidthTracksContent: Story = {
   ),
 };
 
-export const TailPositions: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
-      {[20, 50, 73].map((offset) => (
-        <DialogueBubble key={offset} tailOffset={offset}>
-          tail at {offset}%
-        </DialogueBubble>
-      ))}
-    </div>
-  ),
+/**
+ * The tail's placement follows the same 9-point grid as CSS object-position —
+ * each name picks which edge (and where along it) the tail points from.
+ */
+export const AllPlacements: Story = {
+  render: () => {
+    const placements: DialogueBubblePlacement[] = [
+      'top-left',
+      'top',
+      'top-right',
+      'left',
+      'center',
+      'right',
+      'bottom-left',
+      'bottom',
+      'bottom-right',
+    ];
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 140px)', gap: 48, padding: 24 }}>
+        {placements.map((placement) => (
+          <div key={placement} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+            <DialogueBubble placement={placement}>{placement}</DialogueBubble>
+          </div>
+        ))}
+      </div>
+    );
+  },
 };
 
 /**
- * Like a tooltip arrow, the tail is clamped to the straight run between the
- * two rounded end-caps — it can never point into the curved corner, even at
- * 0%/100% or on a bubble too narrow to fit the requested offset.
+ * Like a tooltip arrow, the tail is clamped to the straight run of its edge —
+ * it can never point into the bubble's curved corner, even on a bubble too
+ * narrow to fit the requested alignment.
  */
 export const TailClampsLikeATooltip: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
-      <DialogueBubble tailOffset={0}>tail asked for 0%</DialogueBubble>
-      <DialogueBubble tailOffset={100}>tail asked for 100%</DialogueBubble>
-      <DialogueBubble tailOffset={50}>hi</DialogueBubble>
+      <DialogueBubble placement="bottom-left">tail asked for the left corner</DialogueBubble>
+      <DialogueBubble placement="bottom-right">tail asked for the right corner</DialogueBubble>
+      <DialogueBubble placement="bottom-left">hi</DialogueBubble>
     </div>
   ),
 };

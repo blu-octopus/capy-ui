@@ -1,2 +1,2 @@
 export { DialogueBubble } from './DialogueBubble';
-export type { DialogueBubbleProps } from './DialogueBubble';
+export type { DialogueBubbleProps, DialogueBubblePlacement } from './DialogueBubble';
