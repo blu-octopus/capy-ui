@@ -1,0 +1,42 @@
+@keyframes spark-burst {
+  0% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(1);
+    opacity: 0;
+  }
+}
+
+.sparks {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--spark-size);
+  height: var(--spark-size);
+  margin: calc(var(--spark-size) / -2) 0 0 calc(var(--spark-size) / -2);
+  border-radius: 50%;
+  animation: spark-burst 420ms ease-out both;
+}
+
+/* Base UI keeps the indicator mounted through the uncheck exit transition — a fresh
+   burst mid-uncheck would read as checking, not unchecking, so hide it on exit.
+   Bare attribute selector (not `.indicator`) so it still matches across the
+   CSS Modules file boundary — the attribute lives on Checkbox.module.css's
+   `.indicator` element, this file only owns `.sparks`. */
+[data-ending-style] .sparks {
+  display: none;
+}

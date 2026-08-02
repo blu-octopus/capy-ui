@@ -1,0 +1,20 @@
+@keyframes digit-roll-in {
+  from {
+    transform: translateY(-0.4em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/*
+ * Each digit is its own element keyed by its value, so React only remounts
+ * (and re-animates) the ones that actually changed on a given tick — the
+ * unchanged digits and the colon just sit still, like a real digital clock.
+ */
+.digit {
+  display: inline-block;
+  animation: digit-roll-in 280ms ease-out;
+}

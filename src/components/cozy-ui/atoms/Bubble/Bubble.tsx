@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { roundedRectBoundary, generateWobbleRibbon, type BoundarySample } from '../../../../sketch';
 import { useElementSize } from '../../useElementSize';
+import { STROKE_WIDTH, STROKE_FREQUENCY, STROKE_WIGGLE, STROKE_WIDTH_VARIANCE } from '../../strokeDefaults';
 import styles from './Bubble.module.css';
 
 /** Stroke weight used by the hand-drawn outline — DialogueBubble's tail matches this. */
-export const BUBBLE_STROKE_WIDTH = 3;
+export const BUBBLE_STROKE_WIDTH = STROKE_WIDTH;
 
 /**
  * A rounded-rect this tall (min-height 48) renders as a full stadium — the
@@ -45,10 +46,10 @@ export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bub
     return generateWobbleRibbon(boundary, {
       seed: 4,
       halfWidth: BUBBLE_STROKE_WIDTH / 2,
-      wiggle: 1.4,
-      frequency: 0.045,
+      wiggle: STROKE_WIGGLE,
+      frequency: STROKE_FREQUENCY,
       smoothen: 0.5,
-      widthVariance: 0.55,
+      widthVariance: STROKE_WIDTH_VARIANCE,
     });
   }, [width, height]);
 

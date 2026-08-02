@@ -3,15 +3,29 @@ import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
 import styles from './PieChart.module.css';
 
+/**
+ * One wedge. Wedges are drawn in array order starting at 12 o'clock; `value`
+ * is unitless — it's normalized against the sum of every datum's `value`, so
+ * pass raw counts/minutes/whatever, not pre-computed percentages.
+ *
+ * @example
+ * { label: 'study', value: 30, color: 'var(--color-green-secondary)' }
+ */
 export interface PieChartDatum {
+  /** Shown in the legend and as the tooltip/title on hover. */
   label: string;
+  /** This wedge's share of the total — normalized against the sum of all data's `value`, not a 0-100 percent. */
   value: number;
+  /** Wedge fill and legend dot color — any valid CSS color, typically a `var(--color-*-secondary)` token. */
   color: string;
 }
 
 export interface PieChartProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** @default 'Categories' */
   title?: string;
+  /** Wedges in draw order — see `PieChartDatum`. */
   data: PieChartDatum[];
+  /** Diameter of the pie itself, in px (the card grows to fit). @default 120 */
   size?: number;
 }
 
@@ -47,17 +61,7 @@ export const PieChart = React.forwardRef<HTMLDivElement, PieChartProps>(function
 
   return (
     <div ref={setRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
-      <WobbleBorder
-        width={boxSize.width}
-        height={boxSize.height}
-        radius={10}
-        strokeWidth={0.5}
-        color="var(--color-brand-grey)"
-        seed={7}
-        frequency={0.05}
-        wiggle={0.8}
-        widthVariance={0.5}
-      />
+      <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={7} />
       <span className={styles.title}>{title}</span>
       <div className={styles.body}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>

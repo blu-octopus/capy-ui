@@ -25,7 +25,8 @@
 
 .filled {
   background-color: var(--color-button-secondary);
-  color: var(--color-brand-grey);
+  /* --color-brand-grey doesn't clear 4.5:1 against this background — text-secondary does. */
+  color: var(--color-text-secondary);
 }
 
 .filled:hover:not([data-disabled]) {
@@ -51,6 +52,6 @@
 }
 
 .button:focus-visible {
-  outline: var(--stroke-width-2) solid var(--color-brand-brown);
+  outline: var(--stroke-width-2) dashed var(--color-border-focus);
   outline-offset: 2px;
 }

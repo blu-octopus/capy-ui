@@ -26,6 +26,7 @@ import { Field } from './molecules/Field';
 import { ColorPicker } from './molecules/ColorPicker';
 import { DialogueBubble } from './molecules/DialogueBubble';
 import { TimeTabs } from './molecules/TimeTabs';
+import { TimerClock } from './molecules/TimerClock';
 import { TimerToggle } from './molecules/TimerToggle';
 import { Coin, CoinWallet } from './molecules/CoinWallet';
 import { DailyStreaks } from './molecules/DailyStreaks';
@@ -96,6 +97,57 @@ function Item({ name, children }: { name: string; children: React.ReactNode }) {
   );
 }
 
+function Swatch({ token }: { token: string }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, width: 92 }}>
+      <div
+        style={{
+          height: 48,
+          borderRadius: 8,
+          background: `var(${token})`,
+          border: '1px solid rgba(0,0,0,0.08)',
+        }}
+      />
+      <code
+        style={{
+          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+          fontSize: 10,
+          color: 'var(--color-brand-grey)',
+          wordBreak: 'break-all',
+        }}
+      >
+        {token}
+      </code>
+    </div>
+  );
+}
+
+const brandColors = ['--color-brand-brown', '--color-brand-black', '--color-brand-white', '--color-brand-grey'];
+const grayscale = [
+  '--color-grey-50',
+  '--color-grey-100',
+  '--color-grey-200',
+  '--color-grey-300',
+  '--color-grey-400',
+  '--color-grey-500',
+  '--color-grey-600',
+  '--color-grey-700',
+  '--color-grey-800',
+  '--color-grey-900',
+];
+const capyColors = ['--color-capy-body', '--color-capy-nose'];
+const accentColors = [
+  '--color-red-primary',
+  '--color-red-secondary',
+  '--color-yellow-primary',
+  '--color-yellow-secondary',
+  '--color-green-primary',
+  '--color-green-secondary',
+  '--color-blue-primary',
+  '--color-blue-secondary',
+  '--color-grey-primary',
+];
+
 const trendStats = [{ value: '2/4', unit: 'completed' }] as const;
 const pieData = [
   { label: 'study', value: 30, color: 'var(--color-green-secondary)' },
@@ -119,6 +171,37 @@ const barData = [
 export const AllComponents: Story = {
   render: () => (
     <div style={{ padding: 32, maxWidth: 1100 }}>
+      <Section title="Colors" hint="Every token in tokens.css — reach for these vars, not hardcoded hex.">
+        <Item name="Brand">
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {brandColors.map((t) => (
+              <Swatch key={t} token={t} />
+            ))}
+          </div>
+        </Item>
+        <Item name="Grayscale">
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {grayscale.map((t) => (
+              <Swatch key={t} token={t} />
+            ))}
+          </div>
+        </Item>
+        <Item name="Capy">
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {capyColors.map((t) => (
+              <Swatch key={t} token={t} />
+            ))}
+          </div>
+        </Item>
+        <Item name="Accents">
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            {accentColors.map((t) => (
+              <Swatch key={t} token={t} />
+            ))}
+          </div>
+        </Item>
+      </Section>
+
       <Section title="Foundations" hint="Typography and iconography everything else is built on.">
         <Item name="<Text />">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-start' }}>
@@ -172,6 +255,9 @@ export const AllComponents: Story = {
       </Section>
 
       <Section title="Timer" hint="Chrome for the focus session itself.">
+        <Item name="<TimerClock />">
+          <TimerClock seconds={10} direction="down" />
+        </Item>
         <Item name="<TimeTabs />">
           <TimeTabs tabs={['Today', 'Week', 'Month']} defaultValue="Today" />
         </Item>

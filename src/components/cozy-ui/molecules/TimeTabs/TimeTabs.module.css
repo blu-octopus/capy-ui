@@ -1,22 +1,23 @@
+/* Same pill-tab language as TimerToggle: same track/indicator radius, padding, colors, type, and transition. */
 .list {
   position: relative;
   display: flex;
   width: 353px;
   max-width: 100%;
   height: 36px;
-  padding: 6px 4px;
+  padding: 4px;
   box-sizing: border-box;
-  border-radius: 10px;
-  background: var(--color-button-primary);
+  border-radius: 18px;
+  background: var(--color-button-secondary);
 }
 
 .indicator {
   position: absolute;
-  top: 6px;
+  top: 4px;
   left: 0;
-  height: 25px;
+  height: 28px;
   width: var(--active-tab-width);
-  border-radius: 10px;
+  border-radius: 14px;
   background: var(--color-brand-white);
   transform: translateX(var(--active-tab-left));
   transition:
@@ -32,10 +33,17 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.35);
+  /* --color-text-secondary clears 4.5:1 against both the track and the indicator; the previous rgba(0,0,0,.35) did not. */
+  color: var(--color-text-secondary);
   cursor: pointer;
 }
 
 .tab[data-active] {
   color: var(--color-brand-black);
+}
+
+.tab:focus-visible {
+  outline: var(--stroke-width-2) dashed var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 14px;
 }

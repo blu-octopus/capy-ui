@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** BackIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function BackIcon({ size = 12, ...props }: IconProps) {
+export function BackIcon({ size = 12, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 10) / 12}
@@ -9,6 +9,7 @@ export function BackIcon({ size = 12, ...props }: IconProps) {
       viewBox="0 0 10 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><path d="M0.48 5.4C0.48 7.04 4.1 10.47 6.49 10.47C8.88 10.47 8.46 8.12 8.46 5.4C8.46 2.68 8.88 0.47 6.49 0.47C4.1 0.47 0.48 3.76 0.48 5.4Z" fill="currentColor"/>

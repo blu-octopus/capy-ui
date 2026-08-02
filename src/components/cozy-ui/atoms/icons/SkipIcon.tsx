@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** SkipIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function SkipIcon({ size = 19, ...props }: IconProps) {
+export function SkipIcon({ size = 19, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 23) / 19}
@@ -9,6 +9,7 @@ export function SkipIcon({ size = 19, ...props }: IconProps) {
       viewBox="0 0 23 19"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><g><path d="M21.17 9.23C21.17 12.02 16.06 17.84 12.69 17.84C9.31 17.84 10.31 13.86 10.31 9.23C10.31 4.6 9.31 0.84 12.69 0.84C16.06 0.84 21.17 6.43 21.17 9.23Z" fill="white"/>

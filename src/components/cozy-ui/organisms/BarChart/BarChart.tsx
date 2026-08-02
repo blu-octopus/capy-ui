@@ -3,7 +3,15 @@ import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
 import styles from './BarChart.module.css';
 
+/**
+ * One bar. `value` shares its unit with the chart's `unit` prop — pass
+ * minutes if `unit="min"`, sessions if `unit="sessions"`, etc.
+ *
+ * @example
+ * { value: 45, label: '9:00am' }
+ */
 export interface BarChartDatum {
+  /** Bar height, in the same unit as the chart's `unit` prop. */
   value: number;
   /** Only some bars carry an x-axis label in the Figma reference (e.g. every other one). */
   label?: string;
@@ -11,10 +19,13 @@ export interface BarChartDatum {
 
 export interface BarChartProps extends React.ComponentPropsWithoutRef<'div'> {
   title?: string;
+  /** One entry per bar, left to right — see `BarChartDatum`. */
   data: BarChartDatum[];
-  /** @default smallest multiple of 30 at or above the largest value */
+  /** Value at the top of the y-axis; bars are scaled against this. @default smallest multiple of 30 at or above the largest value */
   max?: number;
+  /** Unit label appended to y-axis ticks and the per-bar tooltip (e.g. "min", "sessions"). @default 'min' */
   unit?: string;
+  /** Overrides the default fill for every bar. @default var(--color-green-primary) via .bar in BarChart.module.css */
   barColor?: string;
 }
 
@@ -52,17 +63,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
 
   return (
     <div ref={setRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
-      <WobbleBorder
-        width={boxSize.width}
-        height={boxSize.height}
-        radius={10}
-        strokeWidth={0.5}
-        color="var(--color-brand-grey)"
-        seed={8}
-        frequency={0.05}
-        wiggle={0.8}
-        widthVariance={0.5}
-      />
+      <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={8} />
       {title && <span className={styles.title}>{title}</span>}
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <g transform={`translate(0, ${TOP_MARGIN})`}>
@@ -74,24 +75,6 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
             </text>
           );
         })}
-        <line
-          x1={LEFT_MARGIN}
-          y1={0}
-          x2={LEFT_MARGIN}
-          y2={PLOT_HEIGHT}
-          stroke="var(--color-brand-black)"
-          strokeWidth={2}
-          strokeLinecap="round"
-        />
-        <line
-          x1={LEFT_MARGIN}
-          y1={PLOT_HEIGHT}
-          x2={LEFT_MARGIN + PLOT_WIDTH}
-          y2={PLOT_HEIGHT}
-          stroke="var(--color-brand-black)"
-          strokeWidth={2}
-          strokeLinecap="round"
-        />
         {data.map((d, i) => {
           const x = LEFT_MARGIN + i * (barWidth + gap);
           const barHeight = (d.value / axisMax) * PLOT_HEIGHT;
@@ -115,6 +98,25 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
             </g>
           );
         })}
+        {/* Painted after the bars, not before, so a bar that touches the axis never covers it. */}
+        <line
+          x1={LEFT_MARGIN}
+          y1={0}
+          x2={LEFT_MARGIN}
+          y2={PLOT_HEIGHT}
+          stroke="var(--color-brand-black)"
+          strokeWidth={2}
+          strokeLinecap="round"
+        />
+        <line
+          x1={LEFT_MARGIN}
+          y1={PLOT_HEIGHT}
+          x2={LEFT_MARGIN + PLOT_WIDTH}
+          y2={PLOT_HEIGHT}
+          stroke="var(--color-brand-black)"
+          strokeWidth={2}
+          strokeLinecap="round"
+        />
         </g>
       </svg>
     </div>

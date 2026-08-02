@@ -11,15 +11,38 @@
   --color-brand-brown: #823d00;
   --color-brand-black: #000000;
   --color-brand-white: #ffffff;
-  --color-brand-grey: rgba(0, 0, 0, 0.54);
+  --color-brand-grey: var(--color-grey-600);
+
+  /*
+   * Grayscale ramp — solid hex steps rather than black-with-alpha, so
+   * contrast against any background is predictable instead of depending on
+   * what shows through. 100/200 match the original --color-button-primary/
+   * secondary values; 600 is the first step that clears 4.5:1 (WCAG AA for
+   * normal text) against white, 700 clears 7:1 (AAA).
+   */
+  --color-grey-50: #fafafa;
+  --color-grey-100: #f6f6f6;
+  --color-grey-200: #e7e7e7;
+  --color-grey-300: #d4d4d4;
+  --color-grey-400: #b3b3b3;
+  --color-grey-500: #8a8a8a;
+  --color-grey-600: #6b6b6b;
+  --color-grey-700: #4a4a4a;
+  --color-grey-800: #2e2e2e;
+  --color-grey-900: #1a1a1a;
+
+  /* Text/border roles pulled from the ramp so components reach for meaning, not a raw step. */
+  --color-text-secondary: var(--color-grey-700);
+  --color-border-default: var(--color-grey-300);
+  --color-border-focus: var(--color-brand-brown);
 
   /* Capy colors */
   --color-capy-body: #facc9e;
   --color-capy-nose: #cf9171;
 
   /* Button colors */
-  --color-button-primary: #f6f6f6;
-  --color-button-secondary: #e7e7e7;
+  --color-button-primary: var(--color-grey-100);
+  --color-button-secondary: var(--color-grey-200);
 
   /* Accent colors */
   --color-red-primary: #df7676;

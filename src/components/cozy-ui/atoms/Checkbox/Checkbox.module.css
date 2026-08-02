@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.root:focus-visible {
+  outline: var(--stroke-width-2) dashed var(--color-border-focus);
+  outline-offset: 3px;
+}
+
 .indicator {
   position: absolute;
   left: 50%;
@@ -25,7 +30,8 @@
   color: var(--color-brand-brown);
   pointer-events: none;
   --draw: 1;
-  transition: --draw 240ms ease;
+  /* ease-in-out (not the default ease curve) so the reveal reads as a deliberate hand stroke: slow start, quick middle, slow settle. */
+  transition: --draw 260ms ease-in-out;
 }
 
 /* The single mount frame (enter) and the whole exit transition both target

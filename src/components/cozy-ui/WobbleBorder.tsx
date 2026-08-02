@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { roundedRectBoundary, generateWobbleRibbon, type BoundarySample } from '../../sketch';
+import { STROKE_COLOR, STROKE_WIDTH, STROKE_FREQUENCY, STROKE_WIGGLE, STROKE_WIDTH_VARIANCE } from './strokeDefaults';
 
 export interface WobbleBorderProps {
   width: number;
@@ -29,13 +30,13 @@ export function WobbleBorder({
   width,
   height,
   radius,
-  strokeWidth = 1.5,
-  color = 'currentColor',
+  strokeWidth = STROKE_WIDTH,
+  color = STROKE_COLOR,
   seed,
-  frequency = 0.05,
-  wiggle = 1,
+  frequency = STROKE_FREQUENCY,
+  wiggle = STROKE_WIGGLE,
   smoothen = 0.5,
-  widthVariance = 0.5,
+  widthVariance = STROKE_WIDTH_VARIANCE,
   className,
 }: WobbleBorderProps) {
   const ribbonPath = React.useMemo(() => {

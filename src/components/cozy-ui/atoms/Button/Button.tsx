@@ -17,17 +17,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
     return (
       <BaseButton ref={setRef} className={classes} {...props}>
         {variant === 'outlined' && (
-          <WobbleBorder
-            width={size.width}
-            height={size.height}
-            radius={10}
-            strokeWidth={1}
-            color="var(--color-brand-black)"
-            seed={10}
-            frequency={0.06}
-            wiggle={0.7}
-            widthVariance={0.4}
-          />
+          <WobbleBorder width={size.width} height={size.height} radius={10} seed={10} />
         )}
         {children}
       </BaseButton>

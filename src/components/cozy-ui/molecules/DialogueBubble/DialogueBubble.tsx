@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Bubble, BUBBLE_CORNER_RADIUS, BUBBLE_STROKE_WIDTH, type BubbleProps } from '../../atoms/Bubble';
 import { openPolylineBoundary, generateWobbleRibbon, toClosedPath, type Point } from '../../../../sketch';
 import { useElementSize } from '../../useElementSize';
+import { STROKE_FREQUENCY, STROKE_WIGGLE, STROKE_WIDTH_VARIANCE } from '../../strokeDefaults';
 import styles from './DialogueBubble.module.css';
 
 /**
@@ -57,25 +58,27 @@ const ROTATION_OF: Record<'top' | 'right' | 'bottom' | 'left', number> = {
 const TAIL_SIZE = 20;
 
 /**
- * A real hand-drawn nub is never a mirrored isoceles triangle — the apex
- * leans off-center and the two base corners sit at uneven widths from it.
- * Fixed (not randomized), so the tail looks the same every render; the
- * organic feel comes from `generateWobbleRibbon` perturbing this base shape,
- * not from re-rolling the shape itself.
+ * A real hand-drawn nub is never a mirrored isoceles triangle — it's a
+ * scalene shape with a clearly obtuse-leaning point: one edge short and
+ * steep, the other long and shallow, so the apex reads as "flicked" toward
+ * one side rather than dropped straight down the middle. Fixed (not
+ * randomized), so the tail looks the same every render; the organic feel
+ * comes from `generateWobbleRibbon` perturbing this base shape, not from
+ * re-rolling the shape itself.
  */
-const TAIL_BASE_LEFT: Point = { x: 3, y: 0 };
-const TAIL_APEX: Point = { x: 11.5, y: TAIL_SIZE - 1 };
-const TAIL_BASE_RIGHT: Point = { x: 16.5, y: 0 };
+const TAIL_BASE_LEFT: Point = { x: 2, y: 0 };
+const TAIL_APEX: Point = { x: 7, y: TAIL_SIZE - 1 };
+const TAIL_BASE_RIGHT: Point = { x: 17.5, y: 0 };
 /** How far the fill's base corners extend above y=0 to merge into the bubble, clear of the wobble's own reach. */
 const TAIL_BACK_OVERSHOOT = 4;
 
 const tailRibbon = generateWobbleRibbon(openPolylineBoundary([TAIL_BASE_LEFT, TAIL_APEX, TAIL_BASE_RIGHT]), {
   seed: 9,
   halfWidth: BUBBLE_STROKE_WIDTH / 2,
-  wiggle: 1,
-  frequency: 0.09,
+  wiggle: STROKE_WIGGLE,
+  frequency: STROKE_FREQUENCY,
   smoothen: 0.4,
-  widthVariance: 0.5,
+  widthVariance: STROKE_WIDTH_VARIANCE,
   closed: false,
 });
 

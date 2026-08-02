@@ -21,6 +21,7 @@ export * from './molecules/DailyStreaks';
 export * from './molecules/DialogueBubble';
 export * from './molecules/Field';
 export * from './molecules/TimeTabs';
+export * from './molecules/TimerClock';
 export * from './molecules/TimerToggle';
 
 // Organisms

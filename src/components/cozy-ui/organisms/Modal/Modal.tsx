@@ -26,17 +26,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.backdrop} />
         <Dialog.Popup ref={setRef} className={styles.popup}>
-          <WobbleBorder
-            width={size.width}
-            height={size.height}
-            radius={20}
-            strokeWidth={2}
-            color="var(--color-brand-brown)"
-            seed={5}
-            frequency={0.045}
-            wiggle={1.6}
-            widthVariance={0.6}
-          />
+          <WobbleBorder width={size.width} height={size.height} radius={20} seed={5} />
           <Dialog.Title className={styles.title}>{title}</Dialog.Title>
           {children ?? (
             <>
