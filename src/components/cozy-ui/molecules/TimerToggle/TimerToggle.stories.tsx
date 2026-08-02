@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TimerToggle } from './TimerToggle';
 
 const meta: Meta<typeof TimerToggle> = {
-  title: 'CozyUI/Molecules/TimerToggle',
+  title: 'CozyUI/Timer/TimerToggle',
   component: TimerToggle,
 };
 

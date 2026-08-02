@@ -4,7 +4,7 @@ import { CapyMascotHead } from './CapyMascotHead';
 import { CapyMascotBody } from './CapyMascotBody';
 
 const meta: Meta<typeof CapyMascot> = {
-  title: 'CozyUI/Atoms/CapyMascot',
+  title: 'CozyUI/Brand/CapyMascot',
   component: CapyMascot,
 };
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BarChart } from './BarChart';
 
 const meta: Meta<typeof BarChart> = {
-  title: 'CozyUI/Organisms/BarChart',
+  title: 'CozyUI/Progress & Stats/BarChart',
   component: BarChart,
 };
 

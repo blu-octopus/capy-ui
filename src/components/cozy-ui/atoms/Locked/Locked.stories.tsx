@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Locked } from './Locked';
 
 const meta: Meta<typeof Locked> = {
-  title: 'CozyUI/Atoms/Locked',
+  title: 'CozyUI/Brand/Locked',
   component: Locked,
 };
 

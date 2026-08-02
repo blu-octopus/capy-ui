@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PieChart } from './PieChart';
 
 const meta: Meta<typeof PieChart> = {
-  title: 'CozyUI/Organisms/PieChart',
+  title: 'CozyUI/Progress & Stats/PieChart',
   component: PieChart,
 };
 

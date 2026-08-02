@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
+import { WobbleBorder } from '../../WobbleBorder';
+import { useElementSize } from '../../useElementSize';
 import styles from './BarChart.module.css';
 
 export interface BarChartDatum {
@@ -36,10 +37,10 @@ function barPath(x: number, width: number, top: number, bottom: number, radius: 
 }
 
 export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function BarChart(
-  { title, data, max, unit = 'min', barColor, className, style, ...props },
+  { title, data, max, unit = 'min', barColor, className, ...props },
   ref,
 ) {
-  const { filterId, filter } = useHandDrawnFilter({ scale: 1, seed: 8 });
+  const [setRef, boxSize] = useElementSize<HTMLDivElement>(ref);
   const dataMax = Math.max(...data.map((d) => d.value), 1);
   const axisMax = max ?? (Math.ceil(dataMax / 30) * 30 || 30);
   const ticks = [axisMax / 3, (axisMax * 2) / 3, axisMax];
@@ -50,13 +51,18 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
   const barWidth = (PLOT_WIDTH - gap * (data.length - 1)) / data.length;
 
   return (
-    <div
-      ref={ref}
-      className={[styles.card, className].filter(Boolean).join(' ')}
-      style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
-      {...props}
-    >
-      {filter}
+    <div ref={setRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
+      <WobbleBorder
+        width={boxSize.width}
+        height={boxSize.height}
+        radius={10}
+        strokeWidth={0.5}
+        color="var(--color-brand-grey)"
+        seed={8}
+        frequency={0.05}
+        wiggle={0.8}
+        widthVariance={0.5}
+      />
       {title && <span className={styles.title}>{title}</span>}
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <g transform={`translate(0, ${TOP_MARGIN})`}>
