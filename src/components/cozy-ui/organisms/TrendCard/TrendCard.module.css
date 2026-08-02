@@ -4,11 +4,20 @@
   width: 152px;
   height: 84px;
   padding: 10px;
-  border: 0.5px solid var(--color-brand-grey);
   border-radius: 10px;
   background: var(--color-brand-white);
   display: flex;
   flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 0.5px solid var(--color-brand-grey);
+  border-radius: inherit;
+  filter: var(--wobble-filter);
+  pointer-events: none;
 }
 
 .title {

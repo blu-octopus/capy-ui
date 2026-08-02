@@ -59,9 +59,19 @@
    ribbon clipped at the corner by overflow: hidden. */
 .featured {
   height: 119px;
-  border: 1.5px solid var(--color-brand-brown);
   border-radius: 10px;
   overflow: hidden;
+}
+
+.featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--color-brand-brown);
+  border-radius: inherit;
+  filter: var(--wobble-filter);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .ribbon {

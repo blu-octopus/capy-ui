@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
 import styles from './BarChart.module.css';
 
 export interface BarChartDatum {
@@ -35,9 +36,10 @@ function barPath(x: number, width: number, top: number, bottom: number, radius: 
 }
 
 export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function BarChart(
-  { title, data, max, unit = 'min', barColor, className, ...props },
+  { title, data, max, unit = 'min', barColor, className, style, ...props },
   ref,
 ) {
+  const { filterId, filter } = useHandDrawnFilter({ scale: 1, seed: 8 });
   const dataMax = Math.max(...data.map((d) => d.value), 1);
   const axisMax = max ?? (Math.ceil(dataMax / 30) * 30 || 30);
   const ticks = [axisMax / 3, (axisMax * 2) / 3, axisMax];
@@ -48,7 +50,13 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
   const barWidth = (PLOT_WIDTH - gap * (data.length - 1)) / data.length;
 
   return (
-    <div ref={ref} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
+    <div
+      ref={ref}
+      className={[styles.card, className].filter(Boolean).join(' ')}
+      style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
+      {...props}
+    >
+      {filter}
       {title && <span className={styles.title}>{title}</span>}
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <g transform={`translate(0, ${TOP_MARGIN})`}>
