@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'components', 'cozy-ui', 'BatteryIndicator');
+const DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'components', 'cozy-ui', 'atoms', 'BatteryIndicator');
 const ARTBOARD_WIDTH = '1523';
 const BACKGROUND_FILLS = ['#F5F5F5', '#F1EBD8'];
 const PRECISION = 2;
