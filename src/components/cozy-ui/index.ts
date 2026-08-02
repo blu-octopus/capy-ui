@@ -1,3 +1,6 @@
+// Shared
+export * from './HandDrawnFilterDefs';
+
 // Atoms
 export * from './atoms/BatteryIndicator';
 export * from './atoms/Bubble';

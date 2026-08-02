@@ -1,4 +1,5 @@
 .button {
+  position: relative;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
@@ -32,9 +33,18 @@
 }
 
 .outlined {
-  border: var(--stroke-width-1) solid var(--color-brand-black);
   color: var(--color-brand-black);
   background-color: var(--color-brand-white);
+}
+
+.outlined::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--stroke-width-1) solid var(--color-brand-black);
+  border-radius: inherit;
+  filter: var(--wobble-filter);
+  pointer-events: none;
 }
 
 .outlined:hover:not([data-disabled]) {

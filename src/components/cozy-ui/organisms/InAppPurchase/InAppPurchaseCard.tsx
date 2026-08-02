@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Coin } from '../../molecules/CoinWallet';
 import { RibbonIcon } from './RibbonIcon';
+import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
 import styles from './InAppPurchaseCard.module.css';
 
 export interface InAppPurchaseCardProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -25,10 +26,17 @@ const FEATURED_COIN_POSITIONS = [
 ];
 
 export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseCardProps>(
-  function InAppPurchaseCard({ coins, price, coinCount = 1, featured = false, className, ...props }, ref) {
+  function InAppPurchaseCard({ coins, price, coinCount = 1, featured = false, className, style, ...props }, ref) {
+    const { filterId, filter } = useHandDrawnFilter({ scale: 1.5, seed: 9 });
     if (featured) {
       return (
-        <div ref={ref} className={[styles.card, styles.featured, className].filter(Boolean).join(' ')} {...props}>
+        <div
+          ref={ref}
+          className={[styles.card, styles.featured, className].filter(Boolean).join(' ')}
+          style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
+          {...props}
+        >
+          {filter}
           <div className={styles.ribbon}>
             <RibbonIcon />
           </div>

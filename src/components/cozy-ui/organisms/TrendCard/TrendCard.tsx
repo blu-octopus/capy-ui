@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
 import styles from './TrendCard.module.css';
 
 export interface TrendCardStat {
@@ -14,11 +15,18 @@ export interface TrendCardProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export const TrendCard = React.forwardRef<HTMLDivElement, TrendCardProps>(function TrendCard(
-  { title, stats, indicator, className, ...props },
+  { title, stats, indicator, className, style, ...props },
   ref,
 ) {
+  const { filterId, filter } = useHandDrawnFilter({ scale: 1, seed: 6 });
   return (
-    <div ref={ref} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
+    <div
+      ref={ref}
+      className={[styles.card, className].filter(Boolean).join(' ')}
+      style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
+      {...props}
+    >
+      {filter}
       <span className={styles.title}>{title}</span>
       {indicator && <div className={styles.indicator}>{indicator}</div>}
       <div className={styles.stats}>

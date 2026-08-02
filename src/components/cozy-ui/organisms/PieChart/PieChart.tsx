@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
 import styles from './PieChart.module.css';
 
 export interface PieChartDatum {
@@ -35,15 +36,22 @@ function wedgePath(center: number, radius: number, startPct: number, endPct: num
  * a numeric readout in both the legend and the hover tooltip.
  */
 export const PieChart = React.forwardRef<HTMLDivElement, PieChartProps>(function PieChart(
-  { title = 'Categories', data, size = 120, className, ...props },
+  { title = 'Categories', data, size = 120, className, style, ...props },
   ref,
 ) {
   const total = data.reduce((sum, d) => sum + d.value, 0);
   let cursor = 0;
   const center = size / 2;
+  const { filterId, filter } = useHandDrawnFilter({ scale: 1, seed: 7 });
 
   return (
-    <div ref={ref} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
+    <div
+      ref={ref}
+      className={[styles.card, className].filter(Boolean).join(' ')}
+      style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
+      {...props}
+    >
+      {filter}
       <span className={styles.title}>{title}</span>
       <div className={styles.body}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
