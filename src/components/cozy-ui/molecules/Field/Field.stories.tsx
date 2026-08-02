@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Field } from './Field';
 
 const meta: Meta<typeof Field> = {
-  title: 'CozyUI/Molecules/Field',
+  title: 'CozyUI/Controls/Field',
   component: Field,
 };
 

@@ -3,7 +3,7 @@ import { TrendCard } from './TrendCard';
 import { ProgressRing } from '../../atoms/ProgressRing';
 
 const meta: Meta<typeof TrendCard> = {
-  title: 'CozyUI/Organisms/TrendCard',
+  title: 'CozyUI/Progress & Stats/TrendCard',
   component: TrendCard,
 };
 

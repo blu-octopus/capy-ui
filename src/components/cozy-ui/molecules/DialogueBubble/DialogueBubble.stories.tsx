@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DialogueBubble, type DialogueBubblePlacement } from './DialogueBubble';
 
 const meta: Meta<typeof DialogueBubble> = {
-  title: 'CozyUI/Molecules/DialogueBubble',
+  title: 'CozyUI/Speech Bubbles/DialogueBubble',
   component: DialogueBubble,
 };
 

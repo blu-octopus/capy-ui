@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Text, TEXT_VARIANTS, type TextVariant } from './Text';
 
 const meta: Meta<typeof Text> = {
-  title: 'CozyUI/Atoms/Text',
+  title: 'CozyUI/Foundations/Text',
   component: Text,
 };
 

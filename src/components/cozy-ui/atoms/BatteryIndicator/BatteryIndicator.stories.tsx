@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BatteryIndicator } from './BatteryIndicator';
 
 const meta: Meta<typeof BatteryIndicator> = {
-  title: 'CozyUI/Atoms/BatteryIndicator',
+  title: 'CozyUI/Progress & Stats/BatteryIndicator',
   component: BatteryIndicator,
 };
 

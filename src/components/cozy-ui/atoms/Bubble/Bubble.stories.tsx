@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Bubble } from './Bubble';
 
 const meta: Meta<typeof Bubble> = {
-  title: 'CozyUI/Atoms/Bubble',
+  title: 'CozyUI/Speech Bubbles/Bubble',
   component: Bubble,
 };
 

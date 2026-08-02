@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CoinWallet } from './CoinWallet';
-import { Coin } from './Coin';
 
 const meta: Meta<typeof CoinWallet> = {
-  title: 'CozyUI/Molecules/CoinWallet',
+  title: 'CozyUI/Coins & Purchases/CoinWallet',
   component: CoinWallet,
 };
 
@@ -25,8 +24,4 @@ export const GrowsWithDigitCount: Story = {
       <CoinWallet amount={100000} />
     </div>
   ),
-};
-
-export const StandaloneCoin: Story = {
-  render: () => <Coin />,
 };

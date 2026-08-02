@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProgressRing } from './ProgressRing';
 
 const meta: Meta<typeof ProgressRing> = {
-  title: 'CozyUI/Atoms/ProgressRing',
+  title: 'CozyUI/Progress & Stats/ProgressRing',
   component: ProgressRing,
 };
 

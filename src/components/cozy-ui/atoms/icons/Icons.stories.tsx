@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BackIcon, NextIcon, PauseIcon, PlayIcon, RestartIcon, ReturnIcon, SkipIcon, StatsIcon } from './index';
 
 const meta: Meta = {
-  title: 'CozyUI/Atoms/Icons',
+  title: 'CozyUI/Foundations/Icons',
 };
 
 export default meta;

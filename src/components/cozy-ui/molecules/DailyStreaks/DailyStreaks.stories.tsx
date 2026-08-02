@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DailyStreaks } from './DailyStreaks';
 
 const meta: Meta<typeof DailyStreaks> = {
-  title: 'CozyUI/Molecules/DailyStreaks',
+  title: 'CozyUI/Progress & Stats/DailyStreaks',
   component: DailyStreaks,
 };
 

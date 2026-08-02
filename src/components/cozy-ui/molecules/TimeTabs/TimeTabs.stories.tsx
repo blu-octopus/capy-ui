@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TimeTabs } from './TimeTabs';
 
 const meta: Meta<typeof TimeTabs> = {
-  title: 'CozyUI/Molecules/TimeTabs',
+  title: 'CozyUI/Timer/TimeTabs',
   component: TimeTabs,
 };
 

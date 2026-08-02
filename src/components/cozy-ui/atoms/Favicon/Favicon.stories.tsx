@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Favicon } from './Favicon';
 
 const meta: Meta<typeof Favicon> = {
-  title: 'CozyUI/Atoms/Favicon',
+  title: 'CozyUI/Brand/Favicon',
   component: Favicon,
 };
 
