@@ -10,16 +10,6 @@
   flex-direction: column;
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 0.5px solid var(--color-brand-grey);
-  border-radius: inherit;
-  filter: var(--wobble-filter);
-  pointer-events: none;
-}
-
 .title {
   font-family: var(--font-body);
   font-size: 12px;

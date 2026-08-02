@@ -16,9 +16,17 @@ export type TextVariant = keyof typeof TEXT_VARIANTS;
 
 /**
  * Figma marks exactly these 3 variants with "Dynamic Stroke" — an uneven,
- * hand-drawn stroke weight. Replicated the same way as Bubble's outline: a
- * live feTurbulence/feDisplacementMap filter applied via CSS `filter: url()`,
- * which works on real HTML text just as well as on SVG shapes.
+ * hand-drawn stroke weight — replicated here with a live
+ * feTurbulence/feDisplacementMap filter applied via CSS `filter: url()`,
+ * which distorts real HTML text just as well as SVG shapes.
+ *
+ * WEB ONLY. Every other hand-drawn shape in this library moved to generated
+ * path geometry (`src/sketch`) so it renders anywhere, including
+ * react-native-svg — which implements neither of these two filter
+ * primitives. Glyphs are the one case with no path-generation equivalent:
+ * there's no boundary to offset without converting live text to outlines.
+ * On React Native, expect these variants to render as plain (unwobbled)
+ * text; branch on platform rather than assuming parity here.
  */
 const DYNAMIC_STROKE_FILTERS: Partial<Record<TextVariant, { baseFrequency: string; scale: number; seed: number }>> = {
   mainTimerNumber: { baseFrequency: '0.045', scale: 2.2, seed: 2 },

@@ -3,7 +3,8 @@ import { Dialog } from '@base-ui/react/dialog';
 import { Button } from '../../atoms/Button';
 import { Field } from '../../molecules/Field';
 import { ColorPicker } from '../../molecules/ColorPicker';
-import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
+import { WobbleBorder } from '../../WobbleBorder';
+import { useElementSize } from '../../useElementSize';
 import styles from './Modal.module.css';
 
 export interface ModalProps
@@ -18,18 +19,24 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
   { trigger, title = 'Modal', onDone, children, ...props },
   ref,
 ) {
-  const { filterId, filter } = useHandDrawnFilter({ scale: 1.8, seed: 5 });
+  const [setRef, size] = useElementSize<HTMLDivElement>(ref);
   return (
     <Dialog.Root {...props}>
       {trigger && <Dialog.Trigger render={<Button variant="outlined" />}>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.backdrop} />
-        {filter}
-        <Dialog.Popup
-          ref={ref}
-          className={styles.popup}
-          style={{ '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
-        >
+        <Dialog.Popup ref={setRef} className={styles.popup}>
+          <WobbleBorder
+            width={size.width}
+            height={size.height}
+            radius={20}
+            strokeWidth={2}
+            color="var(--color-brand-brown)"
+            seed={5}
+            frequency={0.045}
+            wiggle={1.6}
+            widthVariance={0.6}
+          />
           <Dialog.Title className={styles.title}>{title}</Dialog.Title>
           {children ?? (
             <>

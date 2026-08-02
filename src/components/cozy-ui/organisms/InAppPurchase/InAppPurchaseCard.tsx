@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Coin } from '../../molecules/CoinWallet';
 import { RibbonIcon } from './RibbonIcon';
-import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
+import { WobbleBorder } from '../../WobbleBorder';
+import { useElementSize } from '../../useElementSize';
 import styles from './InAppPurchaseCard.module.css';
 
 export interface InAppPurchaseCardProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -26,17 +27,11 @@ const FEATURED_COIN_POSITIONS = [
 ];
 
 export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseCardProps>(
-  function InAppPurchaseCard({ coins, price, coinCount = 1, featured = false, className, style, ...props }, ref) {
-    const { filterId, filter } = useHandDrawnFilter({ scale: 1.5, seed: 9 });
+  function InAppPurchaseCard({ coins, price, coinCount = 1, featured = false, className, ...props }, ref) {
+    const [setRef, size] = useElementSize<HTMLDivElement>(ref);
     if (featured) {
       return (
-        <div
-          ref={ref}
-          className={[styles.card, styles.featured, className].filter(Boolean).join(' ')}
-          style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
-          {...props}
-        >
-          {filter}
+        <div ref={setRef} className={[styles.card, styles.featured, className].filter(Boolean).join(' ')} {...props}>
           <div className={styles.ribbon}>
             <RibbonIcon />
           </div>
@@ -50,6 +45,18 @@ export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseC
           </div>
           <span className={styles.featuredAmount}>{coins.toLocaleString()}</span>
           <span className={styles.featuredPrice}>{price}</span>
+          {/* Rendered last so it paints above the ribbon graphic, matching the border's own edge. */}
+          <WobbleBorder
+            width={size.width}
+            height={size.height}
+            radius={10}
+            strokeWidth={1.5}
+            color="var(--color-brand-brown)"
+            seed={9}
+            frequency={0.05}
+            wiggle={1.2}
+            widthVariance={0.5}
+          />
         </div>
       );
     }

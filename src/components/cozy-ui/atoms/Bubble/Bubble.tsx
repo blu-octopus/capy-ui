@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { roundedRectBoundary, generateWobbleRibbon, type BoundarySample } from '../../../../sketch';
+import { useElementSize } from '../../useElementSize';
 import styles from './Bubble.module.css';
 
 /** Stroke weight used by the hand-drawn outline — DialogueBubble's tail matches this. */
@@ -15,65 +17,47 @@ export const BUBBLE_CORNER_RADIUS = 24;
 export interface BubbleProps extends React.ComponentPropsWithoutRef<'div'> {}
 
 /**
- * The plain hand-drawn pill, no tail — grows with its content. The outline is
- * a single SVG rect run through an feTurbulence/feDisplacementMap filter, not
- * a tiled border-image: a hand-drawn line doesn't repeat at a fixed period,
- * so tiling it always shows a seam where the tile wraps. Generating the wobble
- * live means the stroke stays one continuous, organic line at any width.
+ * The plain hand-drawn pill, no tail — grows with its content. The outline
+ * is a generated, variable-width ribbon (see `src/sketch`), not a stroked
+ * rect or a tiled border-image: a hand-drawn line doesn't repeat at a fixed
+ * period (tiling always shows a seam) and doesn't hold a constant width
+ * (that's what makes a stroke read as machine-drawn). Pure path generation
+ * also means this renders identically outside the browser — e.g. via
+ * react-native-svg's `Path` — since nothing here depends on SVG filters.
  */
 export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bubble(
   { children, className, style, ...props },
   ref,
 ) {
-  const filterId = React.useId();
-  const innerRef = React.useRef<HTMLDivElement | null>(null);
-  const [size, setSize] = React.useState({ width: 0, height: 0 });
+  const [setRef, { width, height }] = useElementSize<HTMLDivElement>(ref);
 
-  React.useLayoutEffect(() => {
-    const el = innerRef.current;
-    if (!el) return;
-    const measure = () => setSize({ width: el.clientWidth, height: el.clientHeight });
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    measure();
-    return () => observer.disconnect();
-  }, []);
-
-  const setRefs = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      innerRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    },
-    [ref],
-  );
-
-  const { width, height } = size;
-  const half = BUBBLE_STROKE_WIDTH / 2;
-  const radius = height > 0 ? Math.min(height / 2 - half, BUBBLE_CORNER_RADIUS) : BUBBLE_CORNER_RADIUS;
+  const ribbon = React.useMemo(() => {
+    if (width <= 0 || height <= 0) return null;
+    const inset = BUBBLE_STROKE_WIDTH / 2;
+    const innerWidth = width - BUBBLE_STROKE_WIDTH;
+    const innerHeight = height - BUBBLE_STROKE_WIDTH;
+    const radius = Math.min(innerHeight / 2, BUBBLE_CORNER_RADIUS);
+    const boundary: BoundarySample[] = roundedRectBoundary(innerWidth, innerHeight, radius).map((p) => ({
+      ...p,
+      x: p.x + inset,
+      y: p.y + inset,
+    }));
+    return generateWobbleRibbon(boundary, {
+      seed: 4,
+      halfWidth: BUBBLE_STROKE_WIDTH / 2,
+      wiggle: 1.4,
+      frequency: 0.045,
+      smoothen: 0.5,
+      widthVariance: 0.55,
+    });
+  }, [width, height]);
 
   return (
-    <div ref={setRefs} className={[styles.bubble, className].filter(Boolean).join(' ')} style={style} {...props}>
-      {width > 0 && height > 0 && (
+    <div ref={setRef} className={[styles.bubble, className].filter(Boolean).join(' ')} style={style} {...props}>
+      {ribbon && (
         <svg className={styles.outline} width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden>
-          <defs>
-            <filter id={filterId} x="-15%" y="-60%" width="130%" height="220%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.06 0.4" numOctaves={2} seed={4} result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale={2.4} xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-          <rect
-            x={half}
-            y={half}
-            width={width - BUBBLE_STROKE_WIDTH}
-            height={height - BUBBLE_STROKE_WIDTH}
-            rx={radius}
-            ry={radius}
-            fill="var(--color-brand-white)"
-            stroke="var(--color-brand-brown)"
-            strokeWidth={BUBBLE_STROKE_WIDTH}
-            filter={`url(#${filterId})`}
-          />
+          <path d={ribbon.fillPath} fill="var(--color-brand-white)" />
+          <path d={ribbon.ribbonPath} fill="var(--color-brand-brown)" fillRule="evenodd" />
         </svg>
       )}
       <span className={styles.text}>{children}</span>

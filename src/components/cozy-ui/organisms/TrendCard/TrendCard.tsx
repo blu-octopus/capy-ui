@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useHandDrawnFilter } from '../../HandDrawnFilterDefs';
+import { WobbleBorder } from '../../WobbleBorder';
+import { useElementSize } from '../../useElementSize';
 import styles from './TrendCard.module.css';
 
 export interface TrendCardStat {
@@ -15,18 +16,23 @@ export interface TrendCardProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export const TrendCard = React.forwardRef<HTMLDivElement, TrendCardProps>(function TrendCard(
-  { title, stats, indicator, className, style, ...props },
+  { title, stats, indicator, className, ...props },
   ref,
 ) {
-  const { filterId, filter } = useHandDrawnFilter({ scale: 1, seed: 6 });
+  const [setRef, size] = useElementSize<HTMLDivElement>(ref);
   return (
-    <div
-      ref={ref}
-      className={[styles.card, className].filter(Boolean).join(' ')}
-      style={{ ...style, '--wobble-filter': `url(#${filterId})` } as React.CSSProperties}
-      {...props}
-    >
-      {filter}
+    <div ref={setRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
+      <WobbleBorder
+        width={size.width}
+        height={size.height}
+        radius={10}
+        strokeWidth={0.5}
+        color="var(--color-brand-grey)"
+        seed={6}
+        frequency={0.05}
+        wiggle={0.8}
+        widthVariance={0.5}
+      />
       <span className={styles.title}>{title}</span>
       {indicator && <div className={styles.indicator}>{indicator}</div>}
       <div className={styles.stats}>
