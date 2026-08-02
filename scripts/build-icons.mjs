@@ -65,7 +65,7 @@ function toComponent(name, svg) {
   return `import type { IconProps } from './types';
 
 /** ${componentName} — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function ${componentName}({ size = ${height}, ...props }: IconProps) {
+export function ${componentName}({ size = ${height}, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * ${width}) / ${height}}
@@ -73,6 +73,7 @@ export function ${componentName}({ size = ${height}, ...props }: IconProps) {
       viewBox="0 0 ${width} ${height}"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
 ${body}

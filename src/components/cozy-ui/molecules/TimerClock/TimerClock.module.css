@@ -1,0 +1,56 @@
+/*
+ * Each digit is a one-line-tall clipping box (overflow: hidden) around a
+ * 2-cell column. A changed digit's track is exactly 2 cells (2em) tall so a
+ * translateY of exactly -1em always lines up on a cell boundary — sized in
+ * em, not measured in JS, so it scales with mainTimerNumber/
+ * secondaryTimerNumber's own font-size automatically.
+ */
+.digitBox {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+  line-height: 1;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.digitTrack {
+  display: flex;
+  flex-direction: column;
+}
+
+.digitCell {
+  height: 1em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* direction="up": old digit (top cell) scrolls up and out, new digit (bottom cell) scrolls up into view. */
+@keyframes digit-scroll-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1em);
+  }
+}
+
+/* direction="down": old digit (bottom cell) scrolls down and out, new digit (top cell) scrolls down into view. */
+@keyframes digit-scroll-down {
+  from {
+    transform: translateY(-1em);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.scrollUp {
+  animation: digit-scroll-up 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.scrollDown {
+  animation: digit-scroll-down 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}

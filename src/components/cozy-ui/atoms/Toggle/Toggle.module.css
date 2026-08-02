@@ -12,13 +12,32 @@
   height: 22px;
   border-radius: 20px;
   background: var(--color-brand-white);
-  border: 1px solid var(--color-button-secondary);
+  border: 2px solid var(--color-grey-primary);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Same invisible hit-area technique as Checkbox — the 22px-tall track stays
+   Figma-accurate visually, but the tappable region clears ~44px. */
+.root::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 47px;
+  height: 44px;
+  transform: translate(-50%, -50%);
 }
 
 .root[data-checked] {
   background: var(--color-button-secondary);
   border-color: transparent;
+}
+
+.root:focus-visible {
+  outline: var(--stroke-width-2) dashed var(--color-border-focus);
+  outline-offset: 2px;
 }
 
 .thumb {
@@ -34,4 +53,13 @@
 .root[data-checked] .thumb {
   background: var(--color-brand-white);
   transform: translateX(25px);
+}
+
+.thumbWobble {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.root[data-checked] .thumbWobble {
+  opacity: 1;
 }

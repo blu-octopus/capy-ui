@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** StatsIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function StatsIcon({ size = 24, ...props }: IconProps) {
+export function StatsIcon({ size = 24, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 21) / 24}
@@ -9,6 +9,7 @@ export function StatsIcon({ size = 24, ...props }: IconProps) {
       viewBox="0 0 21 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><g><path d="M0.94 21.75H19.94V22.75H0.94V21.75Z" fill="white"/>

@@ -16,6 +16,21 @@
   justify-content: center;
   white-space: nowrap;
   transition: background-color 120ms ease, opacity 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Invisible hit-area — the 28px-tall button stays Figma-accurate visually
+   (padding already gives it generous width), but the tappable region clears
+   the ~44px minimum touch target height. */
+.button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  min-height: 44px;
+  transform: translateY(-50%);
 }
 
 .button[data-disabled] {
@@ -25,7 +40,8 @@
 
 .filled {
   background-color: var(--color-button-secondary);
-  color: var(--color-brand-grey);
+  /* --color-brand-grey doesn't clear 4.5:1 against this background — text-secondary does. */
+  color: var(--color-text-secondary);
 }
 
 .filled:hover:not([data-disabled]) {
@@ -34,11 +50,11 @@
 
 .outlined {
   color: var(--color-brand-black);
-  background-color: var(--color-brand-white);
+  background-color: color-mix(in srgb, var(--color-brand-brown) 10%, transparent);
 }
 
 .outlined:hover:not([data-disabled]) {
-  background-color: var(--color-button-primary);
+  background-color: color-mix(in srgb, var(--color-brand-brown) 16%, transparent);
 }
 
 .ghost {
@@ -51,6 +67,6 @@
 }
 
 .button:focus-visible {
-  outline: var(--stroke-width-2) solid var(--color-brand-brown);
+  outline: var(--stroke-width-2) dashed var(--color-border-focus);
   outline-offset: 2px;
 }

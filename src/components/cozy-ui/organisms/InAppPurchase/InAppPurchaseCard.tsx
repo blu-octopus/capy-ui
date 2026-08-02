@@ -46,17 +46,7 @@ export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseC
           <span className={styles.featuredAmount}>{coins.toLocaleString()}</span>
           <span className={styles.featuredPrice}>{price}</span>
           {/* Rendered last so it paints above the ribbon graphic, matching the border's own edge. */}
-          <WobbleBorder
-            width={size.width}
-            height={size.height}
-            radius={10}
-            strokeWidth={1.5}
-            color="var(--color-brand-brown)"
-            seed={9}
-            frequency={0.05}
-            wiggle={1.2}
-            widthVariance={0.5}
-          />
+          <WobbleBorder width={size.width} height={size.height} radius={10} seed={9} />
         </div>
       );
     }

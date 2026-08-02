@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** NextIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function NextIcon({ size = 12, ...props }: IconProps) {
+export function NextIcon({ size = 12, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 10) / 12}
@@ -9,6 +9,7 @@ export function NextIcon({ size = 12, ...props }: IconProps) {
       viewBox="0 0 10 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><path d="M8.62 5.4C8.62 7.04 5 10.47 2.61 10.47C0.23 10.47 0.65 8.12 0.65 5.4C0.65 2.68 0.23 0.47 2.61 0.47C5 0.47 8.62 3.76 8.62 5.4Z" fill="currentColor"/>

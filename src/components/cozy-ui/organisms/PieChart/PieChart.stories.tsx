@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PieChart } from './PieChart';
 
@@ -33,4 +34,28 @@ const data = [
 
 export const Default: Story = {
   args: { title: 'Categories', data },
+};
+
+/**
+ * Hover a wedge (or its legend row) on desktop; tap one on touch — tapping
+ * pins the tooltip open until you tap elsewhere. `onSliceClick` is where
+ * you'd wire up a drill-down, e.g. navigating to that category's session
+ * history.
+ */
+export const WithInteraction: Story = {
+  render: () => {
+    const [lastClicked, setLastClicked] = React.useState<string | null>(null);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <PieChart
+          title="Categories"
+          data={data}
+          onSliceClick={(datum) => setLastClicked(`${datum.label} (${datum.value})`)}
+        />
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--color-brand-grey)' }}>
+          {lastClicked ? `Last clicked: ${lastClicked}` : 'Click or tap a wedge…'}
+        </span>
+      </div>
+    );
+  },
 };

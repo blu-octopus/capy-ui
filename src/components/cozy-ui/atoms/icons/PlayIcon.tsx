@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** PlayIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function PlayIcon({ size = 27, ...props }: IconProps) {
+export function PlayIcon({ size = 27, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 24) / 27}
@@ -9,6 +9,7 @@ export function PlayIcon({ size = 27, ...props }: IconProps) {
       viewBox="0 0 24 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><path d="M22.12 12.9C22.12 16.85 12.36 25.07 5.92 25.07C-0.52 25.07 1.38 19.44 1.38 12.9C1.38 6.37 -0.52 1.07 5.92 1.07C12.36 1.07 22.12 8.96 22.12 12.9Z" fill="white"/>

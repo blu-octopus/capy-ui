@@ -1,7 +1,7 @@
 import type { IconProps } from './types';
 
 /** PauseIcon — generated from Figma by scripts/build-icons.mjs. Do not edit by hand. */
-export function PauseIcon({ size = 27, ...props }: IconProps) {
+export function PauseIcon({ size = 27, style, ...props }: IconProps) {
   return (
     <svg
       width={(size * 21) / 27}
@@ -9,6 +9,7 @@ export function PauseIcon({ size = 27, ...props }: IconProps) {
       viewBox="0 0 21 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ color: 'var(--color-brand-brown)', ...style }}
       {...props}
     >
       <g><g><rect y="1" width="21" height="24" fill="white"/>
