@@ -69,18 +69,37 @@ const TAIL_SIZE = 20;
 const TAIL_BASE_LEFT: Point = { x: 2, y: 0 };
 const TAIL_APEX: Point = { x: 7, y: TAIL_SIZE - 1 };
 const TAIL_BASE_RIGHT: Point = { x: 17.5, y: 0 };
-/** How far the fill's base corners extend above y=0 to merge into the bubble, clear of the wobble's own reach. */
-const TAIL_BACK_OVERSHOOT = 4;
+/**
+ * Two extra points beyond each base corner, angled outward and up into the
+ * bubble's own border band (negative y). Without them the tail's ribbon
+ * ends exactly at the seam, and since it's generated independently from the
+ * bubble's own outline, their wobble noise never lines up there — the seam
+ * reads as a visible kink. Flaring the ribbon itself past the seam so it
+ * overlaps the bubble's border turns that hard edge into an overlap, which
+ * is what actually reads as one continuous union rather than two shapes
+ * touching. `smoothPass` (see wobble.ts) holds an open boundary's true
+ * endpoints fixed but smooths everything between them, so making these
+ * flares the endpoints instead of the base corners also rounds the base
+ * corners themselves into the curve rather than leaving them as sharp
+ * vertices.
+ */
+const TAIL_FLARE_LEFT: Point = { x: -1, y: -5 };
+const TAIL_FLARE_RIGHT: Point = { x: 20.5, y: -5 };
+/** How far the fill's outermost points extend above y=0 to merge into the bubble, clear of the wobble's own reach. */
+const TAIL_BACK_OVERSHOOT = 6;
 
-const tailRibbon = generateWobbleRibbon(openPolylineBoundary([TAIL_BASE_LEFT, TAIL_APEX, TAIL_BASE_RIGHT]), {
-  seed: 9,
-  halfWidth: BUBBLE_STROKE_WIDTH / 2,
-  wiggle: STROKE_WIGGLE,
-  frequency: STROKE_FREQUENCY,
-  smoothen: 0.4,
-  widthVariance: STROKE_WIDTH_VARIANCE,
-  closed: false,
-});
+const tailRibbon = generateWobbleRibbon(
+  openPolylineBoundary([TAIL_FLARE_LEFT, TAIL_BASE_LEFT, TAIL_APEX, TAIL_BASE_RIGHT, TAIL_FLARE_RIGHT]),
+  {
+    seed: 9,
+    halfWidth: BUBBLE_STROKE_WIDTH / 2,
+    wiggle: STROKE_WIGGLE,
+    frequency: STROKE_FREQUENCY,
+    smoothen: 0.55,
+    widthVariance: STROKE_WIDTH_VARIANCE,
+    closed: false,
+  },
+);
 
 const tailFillPath = (() => {
   const outer = [...tailRibbon.outer];

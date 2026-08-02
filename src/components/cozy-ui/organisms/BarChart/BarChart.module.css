@@ -16,6 +16,18 @@
   color: var(--color-brand-black);
 }
 
+.plotWrap {
+  position: relative;
+}
+
+/* Fixed viewBox, fluid rendered size — scales down instead of overflowing a
+   card narrower than the chart's intrinsic 292px (see BarChart.tsx's `scale`). */
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .gridLabel {
   font-family: var(--font-body);
   font-size: 10px;
@@ -31,4 +43,28 @@
 
 .bar {
   fill: var(--color-green-primary);
+}
+
+.barActive {
+  filter: brightness(1.1);
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.barEnter {
+  animation: bar-grow 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hitZone {
+  fill: transparent;
+  cursor: pointer;
 }

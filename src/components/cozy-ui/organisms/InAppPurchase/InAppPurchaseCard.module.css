@@ -8,6 +8,7 @@
   position: relative;
   box-sizing: border-box;
   width: 88px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

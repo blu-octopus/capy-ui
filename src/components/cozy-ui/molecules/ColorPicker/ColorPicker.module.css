@@ -1,16 +1,25 @@
 .list {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
+/*
+ * Figma's own dots are 12px, but that's too dense for reliable taps once you
+ * account for real touch-target sizing — swatches sit close enough together
+ * that an invisible hit-area big enough to matter would overlap its
+ * neighbors and make taps ambiguous. Sized up directly instead (20px, 8px
+ * gap) rather than via a hotspot trick.
+ */
 .swatch {
   all: unset;
   box-sizing: border-box;
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .swatch[data-checked] {

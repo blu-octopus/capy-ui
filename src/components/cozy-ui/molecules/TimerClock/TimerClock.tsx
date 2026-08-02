@@ -21,13 +21,31 @@ export interface TimerClockProps {
 }
 
 /**
+ * Gives the CURRENT render access to what `value` was as of the previous
+ * completed render (the classic `usePrevious` pattern). The ref is written
+ * in an effect — not mutated inline during render — specifically so
+ * StrictMode's double-render in dev can't make it observe its own
+ * in-progress render as "previous".
+ */
+function usePrevious<T>(value: T): T {
+  const ref = React.useRef(value);
+  React.useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+/**
  * A real ticking MM:SS display — not a one-shot "animate to a target"
  * counter. Every second the shown value advances by exactly 1 via
  * `setInterval` (no animation library; matches the dependency-free,
- * React-Native-safe approach used by `ProgressRing`'s animation). Only the
- * digits that actually changed play a roll-in transition, via CSS keyframes
- * triggered by React remounting just those characters — the same
- * remount-triggers-animation trick `Checkbox`'s spark burst uses.
+ * React-Native-safe approach used by `ProgressRing`'s animation).
+ *
+ * Digits that change scroll like an odometer wheel — clipped to a
+ * one-line-tall box via `overflow: hidden` so the outgoing/incoming digit
+ * never spills outside its cell — sliding upward for `direction="up"` and
+ * downward for `direction="down"`, on a bezier ease so the motion settles
+ * rather than snapping.
  */
 export const TimerClock = React.forwardRef<HTMLElement, TimerClockProps>(function TimerClock(
   { seconds, direction = 'down', running = true, target, onTick, onComplete, variant = 'mainTimerNumber', className },
@@ -87,14 +105,41 @@ export const TimerClock = React.forwardRef<HTMLElement, TimerClockProps>(functio
   }, [running, direction, target, seconds]);
 
   const display = formatClock(remaining);
+  const prevDisplay = usePrevious(display);
+  const scrollClass = direction === 'down' ? styles.scrollDown : styles.scrollUp;
 
   return (
     <Text ref={ref} variant={variant} className={className}>
-      {[...display].map((char, i) => (
-        <span key={`${i}-${char}`} className={styles.digit}>
-          {char}
-        </span>
-      ))}
+      {[...display].map((char, i) => {
+        const prevChar = prevDisplay[i];
+
+        // Unchanged (or no prior value yet, e.g. first render) — a plain
+        // static cell, no transition to play.
+        if (prevChar === undefined || prevChar === char) {
+          return (
+            <span key={`static-${i}`} className={styles.digitBox}>
+              <span className={styles.digitCell}>{char}</span>
+            </span>
+          );
+        }
+
+        // Both the outgoing and incoming digit render together for the
+        // scroll's duration; which sits on top depends on which way the
+        // wheel turns. Keying by the transition's own before/after value
+        // (not just the index) remounts a fresh instance per change, which
+        // is what (re)triggers the CSS animation — same trick as the
+        // Checkbox spark burst.
+        const top = direction === 'down' ? char : prevChar;
+        const bottom = direction === 'down' ? prevChar : char;
+        return (
+          <span key={`${i}-${prevChar}-${char}`} className={styles.digitBox}>
+            <span className={[styles.digitTrack, scrollClass].join(' ')}>
+              <span className={styles.digitCell}>{top}</span>
+              <span className={styles.digitCell}>{bottom}</span>
+            </span>
+          </span>
+        );
+      })}
     </Text>
   );
 });

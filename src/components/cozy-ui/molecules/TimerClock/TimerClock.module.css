@@ -1,20 +1,56 @@
-@keyframes digit-roll-in {
+/*
+ * Each digit is a one-line-tall clipping box (overflow: hidden) around a
+ * 2-cell column. A changed digit's track is exactly 2 cells (2em) tall so a
+ * translateY of exactly -1em always lines up on a cell boundary — sized in
+ * em, not measured in JS, so it scales with mainTimerNumber/
+ * secondaryTimerNumber's own font-size automatically.
+ */
+.digitBox {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+  line-height: 1;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.digitTrack {
+  display: flex;
+  flex-direction: column;
+}
+
+.digitCell {
+  height: 1em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* direction="up": old digit (top cell) scrolls up and out, new digit (bottom cell) scrolls up into view. */
+@keyframes digit-scroll-up {
   from {
-    transform: translateY(-0.4em);
-    opacity: 0;
+    transform: translateY(0);
   }
   to {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(-1em);
   }
 }
 
-/*
- * Each digit is its own element keyed by its value, so React only remounts
- * (and re-animates) the ones that actually changed on a given tick — the
- * unchanged digits and the colon just sit still, like a real digital clock.
- */
-.digit {
-  display: inline-block;
-  animation: digit-roll-in 280ms ease-out;
+/* direction="down": old digit (bottom cell) scrolls down and out, new digit (top cell) scrolls down into view. */
+@keyframes digit-scroll-down {
+  from {
+    transform: translateY(-1em);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.scrollUp {
+  animation: digit-scroll-up 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.scrollDown {
+  animation: digit-scroll-down 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
