@@ -6,12 +6,12 @@ import styles from './Sparks.module.css';
  * scatter reads more like a real spark burst than a symmetric one.
  */
 const PARTICLES = [
-  { tx: 14, ty: -6, size: 2.2, delay: 0, color: 'var(--color-yellow-primary)' },
-  { tx: -15, ty: -8, size: 1.8, delay: 30, color: 'var(--color-brand-brown)' },
-  { tx: 16, ty: 7, size: 2, delay: 15, color: 'var(--color-green-primary)' },
-  { tx: -13, ty: 10, size: 1.6, delay: 45, color: 'var(--color-blue-primary)' },
-  { tx: 2, ty: -16, size: 1.8, delay: 10, color: 'var(--color-yellow-primary)' },
-  { tx: -3, ty: 15, size: 1.6, delay: 35, color: 'var(--color-brand-brown)' },
+  { tx: 20, ty: -9, size: 3.6, delay: 0, color: 'var(--color-yellow-primary)' },
+  { tx: -21, ty: -11, size: 3, delay: 30, color: 'var(--color-brand-brown)' },
+  { tx: 22, ty: 10, size: 3.2, delay: 15, color: 'var(--color-capy-nose)' },
+  { tx: -18, ty: 14, size: 2.6, delay: 45, color: 'var(--color-brand-brown)' },
+  { tx: 3, ty: -22, size: 3, delay: 10, color: 'var(--color-yellow-primary)' },
+  { tx: -4, ty: 21, size: 2.6, delay: 35, color: 'var(--color-capy-nose)' },
 ] as const;
 
 /** Small particles that burst outward once, timed alongside the checkmark's hand-drawn reveal. */

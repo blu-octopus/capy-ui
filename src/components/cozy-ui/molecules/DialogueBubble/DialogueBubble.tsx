@@ -83,10 +83,10 @@ const TAIL_BASE_RIGHT: Point = { x: 17.5, y: 0 };
  * corners themselves into the curve rather than leaving them as sharp
  * vertices.
  */
-const TAIL_FLARE_LEFT: Point = { x: -1, y: -5 };
-const TAIL_FLARE_RIGHT: Point = { x: 20.5, y: -5 };
+const TAIL_FLARE_LEFT: Point = { x: -1, y: -(BUBBLE_STROKE_WIDTH * 1.2) };
+const TAIL_FLARE_RIGHT: Point = { x: 20.5, y: -(BUBBLE_STROKE_WIDTH * 1.2) };
 /** How far the fill's outermost points extend above y=0 to merge into the bubble, clear of the wobble's own reach. */
-const TAIL_BACK_OVERSHOOT = 6;
+const TAIL_BACK_OVERSHOOT = BUBBLE_STROKE_WIDTH * 1.2 + 1;
 
 const tailRibbon = generateWobbleRibbon(
   openPolylineBoundary([TAIL_FLARE_LEFT, TAIL_BASE_LEFT, TAIL_APEX, TAIL_BASE_RIGHT, TAIL_FLARE_RIGHT]),

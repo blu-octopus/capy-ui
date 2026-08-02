@@ -13,7 +13,14 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(function 
     <Switch.Root ref={ref} className={[styles.root, className].filter(Boolean).join(' ')} {...props}>
       <Switch.Thumb className={styles.thumb}>
         {/* Always rendered, CSS-toggled by [data-checked] — avoids tracking checked state here just to mount/unmount an SVG. */}
-        <WobbleBorder width={20} height={20} radius={10} seed={11} className={styles.thumbWobble} />
+        <WobbleBorder
+          width={20}
+          height={20}
+          radius={10}
+          seed={11}
+          color="currentColor"
+          className={styles.thumbWobble}
+        />
       </Switch.Thumb>
     </Switch.Root>
   );

@@ -12,10 +12,12 @@ export interface DailyStreaksProps extends React.ComponentPropsWithoutRef<'div'>
   heading?: string;
   days?: string[];
   rows: DailyStreaksRow[];
+  /** Fires when a cell is clicked/tapped, with the row and day it belongs to and its new checked state. */
+  onToggle?: (rowIndex: number, dayIndex: number, checked: boolean) => void;
 }
 
 export const DailyStreaks = React.forwardRef<HTMLDivElement, DailyStreaksProps>(function DailyStreaks(
-  { heading = 'Streaks', days = ['M', 'T', 'W', 'T', 'F'], rows, className, style, ...props },
+  { heading = 'Streaks', days = ['M', 'T', 'W', 'T', 'F'], rows, onToggle, className, style, ...props },
   ref,
 ) {
   const gridStyle = { '--day-count': days.length, ...style } as React.CSSProperties;
@@ -30,12 +32,15 @@ export const DailyStreaks = React.forwardRef<HTMLDivElement, DailyStreaksProps>(
           </span>
         ))}
       </div>
-      {rows.map((row) => (
+      {rows.map((row, rowIndex) => (
         <div key={row.label} className={styles.row}>
           <span className={styles.rowLabel}>{row.label}</span>
           {days.map((_, i) => (
             <span key={i} className={styles.cell}>
-              <Checkbox checked={row.checked[i] ?? false} readOnly />
+              <Checkbox
+                checked={row.checked[i] ?? false}
+                onCheckedChange={(checked) => onToggle?.(rowIndex, i, checked)}
+              />
             </span>
           ))}
         </div>
