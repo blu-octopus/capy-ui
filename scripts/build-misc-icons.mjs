@@ -58,12 +58,14 @@ ${body}
 }
 
 const targets = [
-  { dir: 'CoinWallet', asset: 'ellipse1.svg', name: 'CoinRingIcon' },
-  { dir: 'CoinWallet', asset: 'ellipse2.svg', name: 'CoinInnerIcon' },
-  { dir: 'CoinWallet', asset: 'coin-symbol.svg', name: 'CoinSymbolIcon' },
-  { dir: 'Locked', asset: 'lock.svg', name: 'LockedIcon' },
-  { dir: 'CapyMascot', asset: 'mascot.svg', name: 'CapyMascotIcon' },
-  { dir: 'CapyMascot', asset: 'mascot-rough.svg', name: 'CapyMascotRoughIcon' },
+  { dir: 'molecules/CoinWallet', asset: 'ellipse1.svg', name: 'CoinRingIcon' },
+  { dir: 'molecules/CoinWallet', asset: 'ellipse2.svg', name: 'CoinInnerIcon' },
+  { dir: 'molecules/CoinWallet', asset: 'coin-symbol.svg', name: 'CoinSymbolIcon' },
+  { dir: 'atoms/Locked', asset: 'lock.svg', name: 'LockedIcon' },
+  { dir: 'atoms/CapyMascot', asset: 'mascot.svg', name: 'CapyMascotIcon' },
+  { dir: 'atoms/CapyMascot', asset: 'mascot-rough.svg', name: 'CapyMascotRoughIcon' },
+  { dir: 'atoms/CapyMascot', asset: 'mascot-head.svg', name: 'CapyMascotHeadIcon' },
+  { dir: 'atoms/CapyMascot', asset: 'mascot-body.svg', name: 'CapyMascotBodyIcon' },
 ];
 
 for (const { dir, asset, name } of targets) {

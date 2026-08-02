@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ICONS_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'components', 'cozy-ui', 'icons');
+const ICONS_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'components', 'cozy-ui', 'atoms', 'icons');
 const ASSETS_DIR = join(ICONS_DIR, 'assets');
 
 const LINE_ART = '#823D00';
