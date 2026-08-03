@@ -1,2 +1,8 @@
-export { Bubble, BUBBLE_STROKE_WIDTH, BUBBLE_CORNER_RADIUS } from './Bubble';
+export {
+  Bubble,
+  BUBBLE_STROKE_WIDTH,
+  BUBBLE_STROKE_FREQUENCY,
+  BUBBLE_CORNER_RADIUS,
+  buildBubbleBoundary,
+} from './Bubble';
 export type { BubbleProps } from './Bubble';

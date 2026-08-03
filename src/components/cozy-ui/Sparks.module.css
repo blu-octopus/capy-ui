@@ -32,11 +32,12 @@
   animation: spark-burst 420ms ease-out both;
 }
 
-/* Base UI keeps the indicator mounted through the uncheck exit transition — a fresh
-   burst mid-uncheck would read as checking, not unchecking, so hide it on exit.
-   Bare attribute selector (not `.indicator`) so it still matches across the
-   CSS Modules file boundary — the attribute lives on Checkbox.module.css's
-   `.indicator` element, this file only owns `.sparks`. */
+/* Checkbox's indicator stays mounted through the uncheck exit transition — a
+   fresh burst mid-uncheck would read as checking, not unchecking, so hide it
+   on exit. Bare attribute selector (not scoped to any one consumer's class)
+   so it matches across the CSS Modules file boundary regardless of which
+   ancestor element carries `data-ending-style`; consumers without an exit
+   transition (e.g. Toggle) simply never match it. */
 [data-ending-style] .sparks {
   display: none;
 }

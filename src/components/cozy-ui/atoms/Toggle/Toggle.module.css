@@ -1,6 +1,6 @@
 /*
- * The Figma track/thumb colors invert between states rather than just sliding:
- * off is a white track with a grey thumb, on is a grey track with a white thumb.
+ * Track stays white in both states, like ColorPicker's selected swatch —
+ * only the border and thumb color communicate checked/unchecked.
  */
 .root {
   all: unset;
@@ -31,8 +31,7 @@
 }
 
 .root[data-checked] {
-  background: var(--color-button-secondary);
-  border-color: transparent;
+  border-color: var(--color-brand-brown);
 }
 
 .root:focus-visible {
@@ -47,19 +46,18 @@
   height: 20px;
   border-radius: 20px;
   background: var(--color-button-secondary);
-  transition: transform 150ms ease;
+  color: var(--color-grey-primary);
+  transition: transform 150ms ease, color 150ms ease;
 }
 
 .root[data-checked] .thumb {
   background: var(--color-brand-white);
-  transform: translateX(25px);
-}
-
-.thumbWobble {
-  opacity: 0;
-  transition: opacity 150ms ease;
-}
-
-.root[data-checked] .thumbWobble {
-  opacity: 1;
+  color: var(--color-brand-brown);
+  /*
+   * Containing block for an absolutely positioned .thumb is .root's padding
+   * box (47 - 2*2px border = 43px wide), not its border box — so a 2px gap
+   * on the right (matching the unchecked 2px `left`) needs the thumb's left
+   * edge at 43 - 20(thumb) - 2(gap) = 21px, i.e. 19px past the base `left: 2px`.
+   */
+  transform: translateX(19px);
 }

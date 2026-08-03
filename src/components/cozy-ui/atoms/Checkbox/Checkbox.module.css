@@ -20,9 +20,10 @@
 /* Invisible hit-area, centered on the visible 12px box — the visual stays
    pin-sized (matches Figma) while the actual tappable region clears the
    ~44px minimum touch target size. Absolutely positioned, so it doesn't
-   affect layout/spacing anywhere this renders, including dense grids like
-   DailyStreaks (whose checkboxes are read-only anyway, so the overlap there
-   is harmless). */
+   affect layout/spacing anywhere this renders. In dense grids like
+   DailyStreaks, where a full-size hotspot would overlap neighboring cells,
+   the consuming grid clips it back down via `overflow: hidden` on its own
+   cell rather than shrinking the hotspot itself. */
 .root::after {
   content: '';
   position: absolute;

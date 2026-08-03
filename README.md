@@ -21,6 +21,7 @@ Every component is a faithful implementation of the [Personal Productivity Capy 
 
 - [Stack](#stack)
 - [Getting started](#getting-started)
+- [Docs & guides](#docs--guides)
 - [For designers](#for-designers)
 - [Components](#components)
 - [Usage guidelines](#usage-guidelines)
@@ -32,7 +33,7 @@ Every component is a faithful implementation of the [Personal Productivity Capy 
 
 - **React 18** + **TypeScript**, strict mode on
 - [**Base UI**](https://base-ui.com) (`@base-ui/react`) for accessible, unstyled interaction primitives (dialogs, checkboxes, tabs, switches, radio groups) — this library only supplies the look, Base UI supplies correct keyboard/screen-reader behavior
-- **Storybook 8** for component development, visual testing, and documentation
+- **Storybook 8** for component development, visual testing, and documentation — every component gets an auto-generated **Docs** page (full prop API + a live, editable Canvas) via `react-docgen-typescript`, and a **Guides** section shows real multi-component compositions (see [Docs & guides](#docs--guides))
 - Plain **CSS Modules** + design-token **CSS variables** for styling — no CSS-in-JS, no Tailwind, so anything here is easy to read and easy to fork
 - **No d3, no animation library.** Hand-drawn geometry ([`src/sketch`](src/sketch)), chart axis ticks, and every micro-animation are hand-rolled with plain math and CSS — see [Mobile & React Native](#mobile--react-native) for why that matters here specifically
 
@@ -45,7 +46,7 @@ npm install
 npm run storybook
 ```
 
-Storybook launches automatically at **[localhost:6006](http://localhost:6006)**. Use the **CozyUI** sidebar group — grouped by what you'd actually reach for (**Foundations, Controls, Speech Bubbles, Timer, Coins & Purchases, Progress & Stats, Overlays, Brand**), not by how it's built — to browse every component. Start at **CozyUI/Overview** for every component on one scannable page (colors included), or open an individual story to see its states/variants side by side.
+Storybook launches automatically at **[localhost:6006](http://localhost:6006)**. Use the **CozyUI** sidebar group — grouped by what you'd actually reach for (**Overview, Guides, Foundations, Controls, Speech Bubbles, Timer, Coins & Purchases, Progress & Stats, Overlays, Brand**), not by how it's built — to browse every component. Start at **CozyUI/Overview** for every component on one scannable page (colors included), open an individual story to see its states/variants side by side, or its **Docs** tab for the full prop API and a live editable example (see [Docs & guides](#docs--guides) below).
 
 Don't want to install anything? The same Storybook is **[hosted on GitHub Pages](https://blu-octopus.github.io/capy-ui/)** and redeploys automatically on every push to `main` via [`.github/workflows/deploy-storybook.yml`](.github/workflows/deploy-storybook.yml).
 
@@ -56,6 +57,21 @@ Other scripts:
 | `npm run storybook` | Local dev server with hot reload |
 | `npm run build-storybook` | Static Storybook build (what gets deployed to Pages) |
 | `npm run typecheck` | Strict `tsc --noEmit` pass — run this before opening a PR |
+
+## Docs & guides
+
+Every component has an auto-generated **Docs** page (open the "Docs" tab, or the `--docs` suffix on any story URL) — not hand-maintained, so it can't drift from the code:
+
+- **Full prop API** — every prop's type, whether it's required, its `@default`, and its JSDoc description, pulled straight from the TypeScript source via `react-docgen-typescript`.
+- **Live, editable Canvas** — the Controls panel lets you change props (a `variant`, a `data` array, a boolean) and see the component re-render immediately, no local setup required.
+- **Show code** — every rendered example has a "Show code" toggle revealing the exact JSX that produced it.
+
+For how components actually compose into a real screen — not just one at a time — see **CozyUI/Guides** in the sidebar:
+
+- **[Timer Screen](https://blu-octopus.github.io/capy-ui/?path=/docs/cozyui-guides-timer-screen--docs)** — `TimeTabs` + `TimerToggle` + `TimerClock` + `Button` + `DialogueBubble`, wired into an actually-running session picker/play/pause/reset flow (the screen that motivated capy-ui's Pomodoro-app direction in the first place).
+- **[Streaks & Stats Dashboard](https://blu-octopus.github.io/capy-ui/?path=/docs/cozyui-guides-streaks-stats-dashboard--docs)** — `DailyStreaks` + `TrendCard` (with a `ProgressRing` indicator) + `PieChart` + `BarChart`, all driven by real local state, not static screenshots.
+
+Both guides are plain `.mdx` files under [`src/components/cozy-ui/guides`](src/components/cozy-ui/guides) — each demo component is defined right there in the file, so "view source" on the guide *is* the full working example.
 
 ## For designers
 

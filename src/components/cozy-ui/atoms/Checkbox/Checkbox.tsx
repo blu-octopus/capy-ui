@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckIcon } from './CheckIcon';
-import { Sparks } from './Sparks';
+import { Sparks } from '../../Sparks';
 import styles from './Checkbox.module.css';
 
 export interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof BaseCheckbox.Root> {}

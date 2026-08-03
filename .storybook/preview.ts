@@ -3,6 +3,9 @@ import * as React from 'react';
 import '../src/components/cozy-ui/tokens.css';
 
 const preview: Preview = {
+  // Every *.stories.tsx gets an auto-generated Docs page (full props table +
+  // a live, editable Canvas) without repeating this tag file-by-file.
+  tags: ['autodocs'],
   parameters: {
     backgrounds: {
       default: 'cozy',
@@ -21,6 +24,7 @@ const preview: Preview = {
           'CozyUI',
           [
             'Overview',
+            'Guides',
             'Foundations',
             'Controls',
             'Speech Bubbles',

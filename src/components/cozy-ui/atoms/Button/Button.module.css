@@ -50,11 +50,11 @@
 
 .outlined {
   color: var(--color-brand-black);
-  background-color: color-mix(in srgb, var(--color-brand-brown) 10%, transparent);
+  background-color: transparent;
 }
 
 .outlined:hover:not([data-disabled]) {
-  background-color: color-mix(in srgb, var(--color-brand-brown) 16%, transparent);
+  background-color: color-mix(in srgb, var(--color-brand-brown) 10%, transparent);
 }
 
 .ghost {

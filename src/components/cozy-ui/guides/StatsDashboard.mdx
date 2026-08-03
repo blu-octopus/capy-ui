@@ -1,0 +1,124 @@
+import { Meta } from '@storybook/blocks';
+import * as React from 'react';
+import { ProgressRing } from '../atoms/ProgressRing';
+import { DailyStreaks } from '../molecules/DailyStreaks';
+import { TrendCard } from '../organisms/TrendCard';
+import { PieChart } from '../organisms/PieChart';
+import { BarChart } from '../organisms/BarChart';
+
+<Meta title="CozyUI/Guides/Streaks & Stats Dashboard" />
+
+# Streaks & Stats Dashboard
+
+A "how did I do this week" screen: an interactive streak grid, a row of `TrendCard`s (one with a live `ProgressRing` in its `indicator` slot), and both chart organisms. Everything here is real state — click a streak cell, hover or tap a chart segment — nothing is a static screenshot.
+
+<div style={{ border: '1px solid #E7E7E7', borderRadius: 12, padding: 32 }}>
+  <StatsDashboardDemo />
+</div>
+
+## The pieces
+
+- **`<DailyStreaks />`** — `rows` is plain data (`{ label, checked: boolean[] }[]`); the grid itself holds no state. `onToggle(rowIndex, dayIndex, checked)` fires on every click, so a real screen would persist that into whatever's backing `rows` — the demo just mirrors it into local `useState`.
+- **`<TrendCard />`** — one or two stats per card (`stats: [Stat] | [Stat, Stat]`) plus an optional `indicator` slot pinned top-right, built to hold exactly the kind of thing `<ProgressRing />` is.
+- **`<ProgressRing />`** — a tiny filled-wedge indicator (not a stroked donut, matching the Figma "Sessions" mark) that animates in on mount. Small enough to live inside a `TrendCard`'s `indicator` slot without needing to know anything about its host.
+- **`<PieChart />` / `<BarChart />`** — both take a plain `data` array and both expose hover (desktop) *and* tap-to-pin (touch) via `onSliceHover`/`onSliceClick` and `onBarHover`/`onBarClick` — wire those up for drill-down instead of treating the charts as static images. `BarChart`'s y-axis ticks are computed by a d3-free "nice round number" algorithm; pass `max` to override it.
+
+## The code
+
+```tsx
+function StatsDashboardDemo() {
+  const [rows, setRows] = React.useState([
+    { label: 'Study', checked: [true, true, false, false, false] },
+    { label: 'Meditate', checked: [true, false, true, false, false] },
+  ]);
+
+  return (
+    <>
+      <DailyStreaks
+        rows={rows}
+        onToggle={(rowIndex, dayIndex, checked) =>
+          setRows((prev) =>
+            prev.map((row, i) =>
+              i === rowIndex ? { ...row, checked: row.checked.map((c, j) => (j === dayIndex ? checked : c)) } : row,
+            ),
+          )
+        }
+      />
+
+      <TrendCard
+        title="Sessions"
+        stats={[{ value: '2/4', unit: 'completed' }]}
+        indicator={<ProgressRing value={50} />}
+      />
+
+      <PieChart
+        title="Categories"
+        data={[
+          { label: 'study', value: 30, color: 'var(--color-green-secondary)' },
+          { label: 'break', value: 12, color: 'var(--color-yellow-secondary)' },
+        ]}
+        onSliceClick={(datum) => console.log('drill into', datum.label)}
+      />
+
+      <BarChart
+        title="Focus minutes"
+        unit="min"
+        data={[
+          { value: 25, label: '9am' },
+          { value: 45 },
+          { value: 15, label: '11am' },
+        ]}
+        onBarClick={(datum) => console.log('drill into', datum)}
+      />
+    </>
+  );
+}
+```
+
+export function StatsDashboardDemo() {
+  const [rows, setRows] = React.useState([
+    { label: 'Study', checked: [true, true, false, false, false] },
+    { label: 'Meditate', checked: [true, false, true, false, false] },
+  ]);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
+      <DailyStreaks
+        rows={rows}
+        onToggle={(rowIndex, dayIndex, checked) =>
+          setRows((prev) =>
+            prev.map((row, i) =>
+              i === rowIndex ? { ...row, checked: row.checked.map((c, j) => (j === dayIndex ? checked : c)) } : row,
+            ),
+          )
+        }
+      />
+
+      <TrendCard
+        title="Sessions"
+        stats={[{ value: '2/4', unit: 'completed' }]}
+        indicator={<ProgressRing value={50} />}
+      />
+
+      <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
+        <PieChart
+          title="Categories"
+          data={[
+            { label: 'study', value: 30, color: 'var(--color-green-secondary)' },
+            { label: 'break', value: 12, color: 'var(--color-yellow-secondary)' },
+          ]}
+        />
+
+        <BarChart
+          title="Focus minutes"
+          unit="min"
+          data={[
+            { value: 25, label: '9am' },
+            { value: 45 },
+            { value: 15, label: '11am' },
+          ]}
+        />
+      </div>
+    </div>
+  );
+}

@@ -23,3 +23,18 @@ export const WidthTracksContent: Story = {
     </div>
   ),
 };
+
+/** `paddingX`/`paddingY` override the default 28px/16px independently. */
+export const CustomPadding: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
+      <Bubble>default padding (28x / 16y)</Bubble>
+      <Bubble paddingX={12} paddingY={8}>
+        tight padding (12x / 8y)
+      </Bubble>
+      <Bubble paddingX={48} paddingY={32}>
+        roomy padding (48x / 32y)
+      </Bubble>
+    </div>
+  ),
+};
