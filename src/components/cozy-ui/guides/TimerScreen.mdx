@@ -1,0 +1,146 @@
+import { Meta } from '@storybook/blocks';
+import * as React from 'react';
+import { Button } from '../atoms/Button';
+import { PlayIcon, PauseIcon, RestartIcon } from '../atoms/icons';
+import { DialogueBubble } from '../molecules/DialogueBubble';
+import { TimeTabs } from '../molecules/TimeTabs';
+import { TimerClock } from '../molecules/TimerClock';
+import { TimerToggle } from '../molecules/TimerToggle';
+
+<Meta title="CozyUI/Guides/Timer Screen" />
+
+# Timer Screen
+
+capy-ui's actual next stop is a React Native Pomodoro app — this is the screen that drove it: a session-length picker, a count up/down switch, the ticking clock itself, and play/pause/reset controls. Every piece below is a real, running composition of plain capy-ui components and local `useState` — no hidden glue.
+
+<div style={{ border: '1px solid #E7E7E7', borderRadius: 12, padding: 32 }}>
+  <TimerScreenDemo />
+</div>
+
+## The pieces
+
+Each of these has its own full API reference and interactive Canvas one level up in the sidebar — this page is about how they compose, not a restatement of their props.
+
+- **`<TimeTabs />`** — picks the session length. Purely presentational (a `tabs: string[]` list); the screen owns which one is selected and maps it to a second count.
+- **`<TimerToggle />`** — switches the clock between counting up (open-ended focus) and counting down (a fixed Pomodoro length).
+- **`<TimerClock />`** — the actual ticking display. It's wall-clock-anchored (not "one setInterval tick = one second"), so it self-corrects if the tab is backgrounded or throttled — the thing every naive timer implementation gets wrong. `running` is fully controlled: pair it with a Play/Pause `<Button>` rather than letting the clock manage its own start/stop, exactly as done below.
+- **`<Button />`** — play/pause toggles `running`; reset re-mounts the clock at its starting `seconds` via a changing `key`, which is simpler and more robust than adding an imperative reset method.
+- **`<DialogueBubble />`** — surfaces the `onComplete` callback as an actual break prompt, not just a console log.
+
+## The code
+
+```tsx
+function TimerScreenDemo() {
+  const lengths = { '15 min': 15 * 60, '25 min': 25 * 60, '45 min': 45 * 60 };
+  const [length, setLength] = React.useState('25 min');
+  const [direction, setDirection] = React.useState('down');
+  const [running, setRunning] = React.useState(false);
+  const [resetKey, setResetKey] = React.useState(0);
+  const [done, setDone] = React.useState(false);
+
+  return (
+    <>
+      <TimeTabs
+        tabs={Object.keys(lengths)}
+        defaultValue={length}
+        onValueChange={(v) => {
+          setLength(v);
+          setResetKey((k) => k + 1);
+          setDone(false);
+        }}
+      />
+      <TimerToggle
+        defaultValue={direction}
+        onValueChange={(v) => {
+          setDirection(v);
+          setResetKey((k) => k + 1);
+          setDone(false);
+        }}
+      />
+      <TimerClock
+        key={resetKey}
+        seconds={lengths[length]}
+        direction={direction}
+        running={running}
+        onComplete={() => {
+          setRunning(false);
+          setDone(true);
+        }}
+      />
+      <Button variant="filled" onClick={() => setRunning((r) => !r)}>
+        {running ? <PauseIcon /> : <PlayIcon />}
+      </Button>
+      <Button
+        variant="ghost"
+        onClick={() => {
+          setRunning(false);
+          setResetKey((k) => k + 1);
+          setDone(false);
+        }}
+      >
+        <RestartIcon />
+      </Button>
+      {done && <DialogueBubble placement="top">time to take a break!</DialogueBubble>}
+    </>
+  );
+}
+```
+
+The `resetKey` trick is the one thing worth calling out: `TimerClock` treats its `seconds` prop as a reset point it only reads on mount / when `seconds` itself changes, not a live value it's told to jump to every render (see its own docs page for why). Changing the session length or direction needs a full restart, so the demo forces a remount via a changing `key` rather than teaching `TimerClock` a second, redundant "reset" API.
+
+export function TimerScreenDemo() {
+  const lengths = { '15 min': 15 * 60, '25 min': 25 * 60, '45 min': 45 * 60 };
+  const [length, setLength] = React.useState('25 min');
+  const [direction, setDirection] = React.useState('down');
+  const [running, setRunning] = React.useState(false);
+  const [resetKey, setResetKey] = React.useState(0);
+  const [done, setDone] = React.useState(false);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
+      <TimeTabs
+        tabs={Object.keys(lengths)}
+        defaultValue={length}
+        onValueChange={(v) => {
+          setLength(v);
+          setResetKey((k) => k + 1);
+          setDone(false);
+        }}
+      />
+      <TimerToggle
+        defaultValue={direction}
+        onValueChange={(v) => {
+          setDirection(v);
+          setResetKey((k) => k + 1);
+          setDone(false);
+        }}
+      />
+      <TimerClock
+        key={resetKey}
+        seconds={lengths[length]}
+        direction={direction}
+        running={running}
+        onComplete={() => {
+          setRunning(false);
+          setDone(true);
+        }}
+      />
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <Button variant="filled" onClick={() => setRunning((r) => !r)}>
+          {running ? <PauseIcon /> : <PlayIcon />}
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={() => {
+            setRunning(false);
+            setResetKey((k) => k + 1);
+            setDone(false);
+          }}
+        >
+          <RestartIcon />
+        </Button>
+      </div>
+      {done && <DialogueBubble placement="top">time to take a break!</DialogueBubble>}
+    </div>
+  );
+}
