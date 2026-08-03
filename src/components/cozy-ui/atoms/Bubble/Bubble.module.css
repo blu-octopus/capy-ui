@@ -18,7 +18,7 @@
   display: flex;
   box-sizing: border-box;
   min-height: 48px;
-  padding: 16px 28px;
+  padding: var(--bubble-padding-y, 16px) var(--bubble-padding-x, 28px);
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);

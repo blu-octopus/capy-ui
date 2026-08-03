@@ -8,6 +8,16 @@ import styles from './Bubble.module.css';
 export const BUBBLE_STROKE_WIDTH = STROKE_WIDTH;
 
 /**
+ * Bubble's outline wobbles more tightly than the shared stroke language
+ * elsewhere (Button, Modal, cards) to match the denser hand-drawn line in
+ * the original Figma path — scoped here rather than raising the shared
+ * `STROKE_FREQUENCY` default, which would also affect every other
+ * WobbleBorder consumer. DialogueBubble's tail matches this too, so the
+ * wobble "rhythm" is consistent across the seam.
+ */
+export const BUBBLE_STROKE_FREQUENCY = STROKE_FREQUENCY * 4.4;
+
+/**
  * A rounded-rect this tall (min-height 48) renders as a full stadium — the
  * whole left/right edge is curve, with no straight run at all. Anything that
  * anchors to a Bubble's top/bottom edge — like DialogueBubble's tail — should
@@ -15,7 +25,12 @@ export const BUBBLE_STROKE_WIDTH = STROKE_WIDTH;
  */
 export const BUBBLE_CORNER_RADIUS = 24;
 
-export interface BubbleProps extends React.ComponentPropsWithoutRef<'div'> {}
+export interface BubbleProps extends React.ComponentPropsWithoutRef<'div'> {
+  /** Horizontal (left/right) inner padding, in px. @default 28 */
+  paddingX?: number;
+  /** Vertical (top/bottom) inner padding, in px. @default 16 */
+  paddingY?: number;
+}
 
 /**
  * The plain hand-drawn pill, no tail — grows with its content. The outline
@@ -26,35 +41,55 @@ export interface BubbleProps extends React.ComponentPropsWithoutRef<'div'> {}
  * also means this renders identically outside the browser — e.g. via
  * react-native-svg's `Path` — since nothing here depends on SVG filters.
  */
+/**
+ * The rounded-rect boundary a Bubble's outline wobbles from, stroke-inset
+ * already applied — factored out so DialogueBubble can splice its tail
+ * directly into these samples before the wobble pass runs, instead of
+ * generating the tail as a separate shape that has to visually line up
+ * with an already-wobbled edge after the fact.
+ */
+export function buildBubbleBoundary(width: number, height: number): BoundarySample[] {
+  const inset = BUBBLE_STROKE_WIDTH / 2;
+  const innerWidth = width - BUBBLE_STROKE_WIDTH;
+  const innerHeight = height - BUBBLE_STROKE_WIDTH;
+  const radius = Math.min(innerHeight / 2, BUBBLE_CORNER_RADIUS);
+  return roundedRectBoundary(innerWidth, innerHeight, radius).map((p) => ({
+    ...p,
+    x: p.x + inset,
+    y: p.y + inset,
+  }));
+}
+
 export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bubble(
-  { children, className, style, ...props },
+  { children, className, style, paddingX, paddingY, ...props },
   ref,
 ) {
   const [setRef, { width, height }] = useElementSize<HTMLDivElement>(ref);
 
+  const paddingStyle = {
+    ...(paddingX !== undefined && { '--bubble-padding-x': `${paddingX}px` }),
+    ...(paddingY !== undefined && { '--bubble-padding-y': `${paddingY}px` }),
+  } as React.CSSProperties;
+
   const ribbon = React.useMemo(() => {
     if (width <= 0 || height <= 0) return null;
-    const inset = BUBBLE_STROKE_WIDTH / 2;
-    const innerWidth = width - BUBBLE_STROKE_WIDTH;
-    const innerHeight = height - BUBBLE_STROKE_WIDTH;
-    const radius = Math.min(innerHeight / 2, BUBBLE_CORNER_RADIUS);
-    const boundary: BoundarySample[] = roundedRectBoundary(innerWidth, innerHeight, radius).map((p) => ({
-      ...p,
-      x: p.x + inset,
-      y: p.y + inset,
-    }));
-    return generateWobbleRibbon(boundary, {
+    return generateWobbleRibbon(buildBubbleBoundary(width, height), {
       seed: 4,
       halfWidth: BUBBLE_STROKE_WIDTH / 2,
       wiggle: STROKE_WIGGLE,
-      frequency: STROKE_FREQUENCY,
+      frequency: BUBBLE_STROKE_FREQUENCY,
       smoothen: 0.5,
       widthVariance: STROKE_WIDTH_VARIANCE,
     });
   }, [width, height]);
 
   return (
-    <div ref={setRef} className={[styles.bubble, className].filter(Boolean).join(' ')} style={style} {...props}>
+    <div
+      ref={setRef}
+      className={[styles.bubble, className].filter(Boolean).join(' ')}
+      style={{ ...paddingStyle, ...style }}
+      {...props}
+    >
       {ribbon && (
         <svg className={styles.outline} width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden>
           <path d={ribbon.fillPath} fill="var(--color-brand-white)" />
