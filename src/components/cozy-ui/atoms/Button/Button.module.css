@@ -15,9 +15,13 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  transition: background-color 120ms ease, opacity 120ms ease;
+  transition: background-color 120ms ease, opacity 120ms ease, transform 100ms ease;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+.button:active:not([data-disabled]) {
+  transform: scale(0.94);
 }
 
 /* Invisible hit-area — the 28px-tall button stays Figma-accurate visually
@@ -51,10 +55,6 @@
 .outlined {
   color: var(--color-brand-black);
   background-color: transparent;
-}
-
-.outlined:hover:not([data-disabled]) {
-  background-color: color-mix(in srgb, var(--color-brand-brown) 10%, transparent);
 }
 
 .ghost {
