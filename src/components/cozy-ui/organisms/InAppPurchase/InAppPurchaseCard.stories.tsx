@@ -4,6 +4,9 @@ import { InAppPurchaseCard } from './InAppPurchaseCard';
 const meta: Meta<typeof InAppPurchaseCard> = {
   title: 'CozyUI/Coins & Purchases/InAppPurchaseCard',
   component: InAppPurchaseCard,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

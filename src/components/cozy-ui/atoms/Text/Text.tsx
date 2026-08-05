@@ -38,16 +38,18 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TextVariant;
   /** Override the rendered element, e.g. render `heading1` styling as a `<span>`. */
   as?: React.ElementType;
+  /** For variants Figma marks "Dynamic Stroke" (mainTimerNumber, secondaryTimerNumber, h1), whether the hand-drawn wobble filter applies. No effect on variants that never had a wobble filter to begin with. @default true */
+  showWobble?: boolean;
 }
 
 export const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
-  { variant = 'body1', as, className, style, ...props },
+  { variant = 'body1', as, showWobble = true, className, style, ...props },
   ref,
 ) {
   const Component = as ?? TEXT_VARIANTS[variant];
   const classes = [styles[variant], className].filter(Boolean).join(' ');
   const filterId = React.useId();
-  const wobble = DYNAMIC_STROKE_FILTERS[variant];
+  const wobble = showWobble ? DYNAMIC_STROKE_FILTERS[variant] : undefined;
 
   return (
     <>

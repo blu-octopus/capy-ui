@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './TrendCard.module.css';
 
 /**
@@ -23,16 +24,22 @@ export interface TrendCardProps extends React.ComponentPropsWithoutRef<'div'> {
   stats: [TrendCardStat] | [TrendCardStat, TrendCardStat];
   /** Small element pinned top-right of the title, e.g. a `<ProgressRing />`. */
   indicator?: React.ReactNode;
+  /** Whether the card's hand-drawn border renders at all. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 export const TrendCard = React.forwardRef<HTMLDivElement, TrendCardProps>(function TrendCard(
-  { title, stats, indicator, className, ...props },
+  { title, stats, indicator, showStroke = true, strokeFrequency = STROKE_FREQUENCY, className, ...props },
   ref,
 ) {
   const [setRef, size] = useElementSize<HTMLDivElement>(ref);
   return (
     <div ref={setRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
-      <WobbleBorder width={size.width} height={size.height} radius={10} seed={6} />
+      {showStroke && (
+        <WobbleBorder width={size.width} height={size.height} radius={10} seed={6} frequency={strokeFrequency} />
+      )}
       <span className={styles.title}>{title}</span>
       {indicator && <div className={styles.indicator}>{indicator}</div>}
       <div className={styles.stats}>

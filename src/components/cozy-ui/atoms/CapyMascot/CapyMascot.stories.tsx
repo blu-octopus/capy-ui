@@ -11,6 +11,10 @@ const meta: Meta<typeof CapyMascot> = {
 export default meta;
 type Story = StoryObj<typeof CapyMascot>;
 
+export const Default: Story = {
+  args: { variant: 'default' },
+};
+
 export const BothVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>

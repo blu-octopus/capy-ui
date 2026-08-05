@@ -4,6 +4,9 @@ import { Bubble } from './Bubble';
 const meta: Meta<typeof Bubble> = {
   title: 'CozyUI/Speech Bubbles/Bubble',
   component: Bubble,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

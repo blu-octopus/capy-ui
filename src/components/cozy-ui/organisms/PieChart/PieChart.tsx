@@ -2,6 +2,7 @@ import * as React from 'react';
 import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
 import { ChartTooltip } from '../../ChartTooltip';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './PieChart.module.css';
 
 /**
@@ -34,6 +35,10 @@ export interface PieChartProps extends React.ComponentPropsWithoutRef<'div'> {
   onSliceClick?: (datum: PieChartDatum, index: number) => void;
   /** Formats the tooltip's value line, given the datum and its rounded percent. @default `${percent}% · ${value}` */
   formatTooltipValue?: (datum: PieChartDatum, percent: number) => React.ReactNode;
+  /** Whether the card's hand-drawn border renders at all. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 function wedgePath(center: number, radius: number, startPct: number, endPct: number) {
@@ -72,6 +77,8 @@ export const PieChart = React.forwardRef<HTMLDivElement, PieChartProps>(function
     onSliceHover,
     onSliceClick,
     formatTooltipValue,
+    showStroke = true,
+    strokeFrequency = STROKE_FREQUENCY,
     className,
     ...props
   },
@@ -136,7 +143,9 @@ export const PieChart = React.forwardRef<HTMLDivElement, PieChartProps>(function
 
   return (
     <div ref={combinedRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
-      <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={7} />
+      {showStroke && (
+        <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={7} frequency={strokeFrequency} />
+      )}
       <span className={styles.title}>{title}</span>
       <div className={styles.body}>
         <div className={styles.pieWrap}>

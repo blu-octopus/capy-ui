@@ -5,6 +5,7 @@ import { Field } from '../../molecules/Field';
 import { ColorPicker } from '../../molecules/ColorPicker';
 import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './Modal.module.css';
 
 export interface ModalProps
@@ -13,10 +14,22 @@ export interface ModalProps
   title?: string;
   onDone?: () => void;
   children?: React.ReactNode;
+  /** Whether the popup's hand-drawn border renders at all. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal(
-  { trigger, title = 'Modal', onDone, children, ...props },
+  {
+    trigger,
+    title = 'Modal',
+    onDone,
+    children,
+    showStroke = true,
+    strokeFrequency = STROKE_FREQUENCY,
+    ...props
+  },
   ref,
 ) {
   const [setRef, size] = useElementSize<HTMLDivElement>(ref);
@@ -26,7 +39,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.backdrop} />
         <Dialog.Popup ref={setRef} className={styles.popup}>
-          <WobbleBorder width={size.width} height={size.height} radius={20} seed={5} />
+          {showStroke && (
+            <WobbleBorder width={size.width} height={size.height} radius={20} seed={5} frequency={strokeFrequency} />
+          )}
           <Dialog.Title className={styles.title}>{title}</Dialog.Title>
           {children ?? (
             <>

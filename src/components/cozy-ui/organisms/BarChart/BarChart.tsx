@@ -3,6 +3,7 @@ import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
 import { ChartTooltip } from '../../ChartTooltip';
 import { niceMax, niceTicks } from '../../chartTicks';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './BarChart.module.css';
 
 /**
@@ -35,6 +36,10 @@ export interface BarChartProps extends React.ComponentPropsWithoutRef<'div'> {
   onBarClick?: (datum: BarChartDatum, index: number) => void;
   /** Formats the tooltip's value line. @default `${value} ${unit}` */
   formatTooltipValue?: (datum: BarChartDatum) => React.ReactNode;
+  /** Whether the card's hand-drawn border renders at all. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 const PLOT_WIDTH = 250;
@@ -66,7 +71,20 @@ function barPath(x: number, width: number, top: number, bottom: number, radius: 
  * `Axis` — see `chartTicks.ts`.
  */
 export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function BarChart(
-  { title, data, max, unit = 'min', barColor, onBarHover, onBarClick, formatTooltipValue, className, ...props },
+  {
+    title,
+    data,
+    max,
+    unit = 'min',
+    barColor,
+    onBarHover,
+    onBarClick,
+    formatTooltipValue,
+    showStroke = true,
+    strokeFrequency = STROKE_FREQUENCY,
+    className,
+    ...props
+  },
   ref,
 ) {
   const [setRef, boxSize] = useElementSize<HTMLDivElement>(ref);
@@ -135,7 +153,9 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(function
 
   return (
     <div ref={combinedRef} className={[styles.card, className].filter(Boolean).join(' ')} {...props}>
-      <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={8} />
+      {showStroke && (
+        <WobbleBorder width={boxSize.width} height={boxSize.height} radius={10} seed={8} frequency={strokeFrequency} />
+      )}
       {title && <span className={styles.title}>{title}</span>}
       <div className={styles.plotWrap} ref={setPlotRef}>
         <svg className={styles.svg} viewBox={`0 0 ${width} ${height}`}>

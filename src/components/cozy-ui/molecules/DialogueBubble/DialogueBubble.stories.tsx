@@ -4,6 +4,9 @@ import { DialogueBubble, type DialogueBubblePlacement } from './DialogueBubble';
 const meta: Meta<typeof DialogueBubble> = {
   title: 'CozyUI/Speech Bubbles/DialogueBubble',
   component: DialogueBubble,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;
