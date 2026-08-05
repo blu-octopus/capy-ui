@@ -4,6 +4,11 @@ import { Text, TEXT_VARIANTS, type TextVariant } from './Text';
 const meta: Meta<typeof Text> = {
   title: 'CozyUI/Foundations/Text',
   component: Text,
+  args: { variant: 'h1', children: 'time to focus', showWobble: true },
+  argTypes: {
+    children: { control: 'text' },
+    as: { control: false },
+  },
 };
 
 export default meta;
@@ -20,6 +25,9 @@ const sample: Record<TextVariant, string> = {
   bodyNumberDisplay: '128',
 };
 
+/** A live sandbox — type your own text, switch variants, and toggle the hand-drawn wobble filter on/off. */
+export const Default: Story = {};
+
 export const TypeScale: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
@@ -35,6 +43,10 @@ export const TypeScale: Story = {
 const dynamicStrokeVariants: TextVariant[] = ['mainTimerNumber', 'secondaryTimerNumber', 'h1'];
 
 export const DynamicStroke: Story = {
+  args: {
+    children: "refsergg\n"
+  },
+
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
       {dynamicStrokeVariants.map((variant) => (
@@ -43,5 +55,5 @@ export const DynamicStroke: Story = {
         </Text>
       ))}
     </div>
-  ),
+  )
 };
