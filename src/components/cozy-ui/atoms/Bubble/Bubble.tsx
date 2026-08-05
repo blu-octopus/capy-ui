@@ -30,6 +30,10 @@ export interface BubbleProps extends React.ComponentPropsWithoutRef<'div'> {
   paddingX?: number;
   /** Vertical (top/bottom) inner padding, in px. @default 16 */
   paddingY?: number;
+  /** Whether the hand-drawn outline stroke renders — the white fill behind it stays either way. @default true */
+  showStroke?: boolean;
+  /** How tightly the outline wobbles along its own length — higher reads as a shakier, denser line. @default 0.22 */
+  strokeFrequency?: number;
 }
 
 /**
@@ -61,7 +65,7 @@ export function buildBubbleBoundary(width: number, height: number): BoundarySamp
 }
 
 export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bubble(
-  { children, className, style, paddingX, paddingY, ...props },
+  { children, className, style, paddingX, paddingY, showStroke = true, strokeFrequency = BUBBLE_STROKE_FREQUENCY, ...props },
   ref,
 ) {
   const [setRef, { width, height }] = useElementSize<HTMLDivElement>(ref);
@@ -77,11 +81,11 @@ export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bub
       seed: 4,
       halfWidth: BUBBLE_STROKE_WIDTH / 2,
       wiggle: STROKE_WIGGLE,
-      frequency: BUBBLE_STROKE_FREQUENCY,
+      frequency: strokeFrequency,
       smoothen: 0.5,
       widthVariance: STROKE_WIDTH_VARIANCE,
     });
-  }, [width, height]);
+  }, [width, height, strokeFrequency]);
 
   return (
     <div
@@ -93,7 +97,7 @@ export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(function Bub
       {ribbon && (
         <svg className={styles.outline} width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden>
           <path d={ribbon.fillPath} fill="var(--color-brand-white)" />
-          <path d={ribbon.ribbonPath} fill="var(--color-brand-brown)" fillRule="evenodd" />
+          {showStroke && <path d={ribbon.ribbonPath} fill="var(--color-brand-brown)" fillRule="evenodd" />}
         </svg>
       )}
       <span className={styles.text}>{children}</span>

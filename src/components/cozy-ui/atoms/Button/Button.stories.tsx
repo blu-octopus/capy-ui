@@ -5,6 +5,9 @@ const meta: Meta<typeof Button> = {
   title: 'CozyUI/Controls/Button',
   component: Button,
   args: { children: 'Button 1' },
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

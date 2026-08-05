@@ -2,12 +2,26 @@ import * as React from 'react';
 import { Switch } from '@base-ui/react/switch';
 import { WobbleBorder } from '../../WobbleBorder';
 import { Sparks } from '../../Sparks';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './Toggle.module.css';
 
-export interface ToggleProps extends React.ComponentPropsWithoutRef<typeof Switch.Root> {}
+export interface ToggleProps extends React.ComponentPropsWithoutRef<typeof Switch.Root> {
+  /** Whether the thumb's hand-drawn border renders at all. @default true */
+  showStroke?: boolean;
+  /** How tightly the thumb's hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. @default 0.05 */
+  strokeFrequency?: number;
+}
 
 export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(function Toggle(
-  { className, checked, defaultChecked, onCheckedChange, ...props },
+  {
+    className,
+    checked,
+    defaultChecked,
+    onCheckedChange,
+    showStroke = true,
+    strokeFrequency = STROKE_FREQUENCY,
+    ...props
+  },
   ref,
 ) {
   // Switch has no Indicator subcomponent to mount/unmount off of like Checkbox's
@@ -33,15 +47,18 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(function 
     >
       <Switch.Thumb className={styles.thumb}>
         {/* Always rendered, CSS-toggled by [data-checked] — avoids tracking checked state here just to mount/unmount an SVG. */}
-        <WobbleBorder
-          width={20}
-          height={20}
-          radius={10}
-          seed={11}
-          strokeWidth={2}
-          color="currentColor"
-          className={styles.thumbWobble}
-        />
+        {showStroke && (
+          <WobbleBorder
+            width={20}
+            height={20}
+            radius={10}
+            seed={11}
+            strokeWidth={2}
+            color="currentColor"
+            frequency={strokeFrequency}
+            className={styles.thumbWobble}
+          />
+        )}
         {isChecked && <Sparks />}
       </Switch.Thumb>
     </Switch.Root>

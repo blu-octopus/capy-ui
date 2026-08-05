@@ -9,6 +9,10 @@ const meta: Meta<typeof BatteryIndicator> = {
 export default meta;
 type Story = StoryObj<typeof BatteryIndicator>;
 
+export const Default: Story = {
+  args: { variant: 'default' },
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>

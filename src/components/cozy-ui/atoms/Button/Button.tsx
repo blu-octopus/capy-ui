@@ -3,18 +3,35 @@ import { Button as BaseButton } from '@base-ui/react/button';
 import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
 import { Sparks } from '../../Sparks';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './Button.module.css';
 
 export type ButtonVariant = 'filled' | 'outlined' | 'ghost';
 
 export interface ButtonProps extends React.ComponentProps<typeof BaseButton> {
   variant?: ButtonVariant;
+  /** Whether the outlined variant's hand-drawn border renders at all. Only affects `variant="outlined"`. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. Only affects `variant="outlined"`. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 const BASE_SEED = 10;
 
 export const Button = React.forwardRef<HTMLElement, ButtonProps>(
-  function Button({ variant = 'filled', className, children, onPointerEnter, onClick, ...props }, ref) {
+  function Button(
+    {
+      variant = 'filled',
+      showStroke = true,
+      strokeFrequency = STROKE_FREQUENCY,
+      className,
+      children,
+      onPointerEnter,
+      onClick,
+      ...props
+    },
+    ref,
+  ) {
     const [setRef, size] = useElementSize<HTMLElement>(ref);
     const [burstKey, setBurstKey] = React.useState(0);
     // Re-rolled on every hover-in so the outline redraws with a fresh
@@ -46,7 +63,9 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
       >
         {variant === 'outlined' && (
           <>
-            <WobbleBorder width={size.width} height={size.height} radius={10} seed={seed} />
+            {showStroke && (
+              <WobbleBorder width={size.width} height={size.height} radius={10} seed={seed} frequency={strokeFrequency} />
+            )}
             {burstKey > 0 && <Sparks key={burstKey} />}
           </>
         )}

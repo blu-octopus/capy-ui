@@ -9,6 +9,10 @@ const meta: Meta<typeof Favicon> = {
 export default meta;
 type Story = StoryObj<typeof Favicon>;
 
+export const Default: Story = {
+  args: { size: 48 },
+};
+
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>

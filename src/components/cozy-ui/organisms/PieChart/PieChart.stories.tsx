@@ -5,6 +5,9 @@ import { PieChart } from './PieChart';
 const meta: Meta<typeof PieChart> = {
   title: 'CozyUI/Progress & Stats/PieChart',
   component: PieChart,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

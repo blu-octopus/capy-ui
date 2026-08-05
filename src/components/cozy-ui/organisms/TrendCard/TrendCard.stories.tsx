@@ -5,10 +5,21 @@ import { ProgressRing } from '../../atoms/ProgressRing';
 const meta: Meta<typeof TrendCard> = {
   title: 'CozyUI/Progress & Stats/TrendCard',
   component: TrendCard,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof TrendCard>;
+
+export const Default: Story = {
+  args: {
+    title: 'Sessions',
+    stats: [{ value: '2/4', unit: 'completed' }],
+    indicator: <ProgressRing value={50} />,
+  },
+};
 
 export const Grid: Story = {
   render: () => (

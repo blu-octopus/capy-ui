@@ -4,6 +4,9 @@ import { Toggle } from './Toggle';
 const meta: Meta<typeof Toggle> = {
   title: 'CozyUI/Controls/Toggle',
   component: Toggle,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

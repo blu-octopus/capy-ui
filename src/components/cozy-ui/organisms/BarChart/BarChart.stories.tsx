@@ -5,6 +5,9 @@ import { BarChart } from './BarChart';
 const meta: Meta<typeof BarChart> = {
   title: 'CozyUI/Progress & Stats/BarChart',
   component: BarChart,
+  argTypes: {
+    strokeFrequency: { control: { type: 'range', min: 0.01, max: 0.4, step: 0.005 } },
+  },
 };
 
 export default meta;

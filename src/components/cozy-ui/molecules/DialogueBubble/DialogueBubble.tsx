@@ -220,7 +220,18 @@ export interface DialogueBubbleProps extends BubbleProps {
  * overlap it.
  */
 export const DialogueBubble = React.forwardRef<HTMLDivElement, DialogueBubbleProps>(function DialogueBubble(
-  { placement = 'bottom', showTail = true, children, className, style, paddingX, paddingY, ...props },
+  {
+    placement = 'bottom',
+    showTail = true,
+    children,
+    className,
+    style,
+    paddingX,
+    paddingY,
+    showStroke = true,
+    strokeFrequency = BUBBLE_STROKE_FREQUENCY,
+    ...props
+  },
   ref,
 ) {
   const [setRef, { width, height }] = useElementSize<HTMLDivElement>(ref);
@@ -246,11 +257,11 @@ export const DialogueBubble = React.forwardRef<HTMLDivElement, DialogueBubblePro
       seed: 4,
       halfWidth: BUBBLE_STROKE_WIDTH / 2,
       wiggle: STROKE_WIGGLE,
-      frequency: BUBBLE_STROKE_FREQUENCY,
+      frequency: strokeFrequency,
       smoothen: 0.5,
       widthVariance: STROKE_WIDTH_VARIANCE,
     });
-  }, [width, height, showTail, edge, along]);
+  }, [width, height, showTail, edge, along, strokeFrequency]);
 
   return (
     <div
@@ -268,7 +279,7 @@ export const DialogueBubble = React.forwardRef<HTMLDivElement, DialogueBubblePro
           aria-hidden
         >
           <path d={ribbon.fillPath} fill="var(--color-brand-white)" />
-          <path d={ribbon.ribbonPath} fill="var(--color-brand-brown)" fillRule="evenodd" />
+          {showStroke && <path d={ribbon.ribbonPath} fill="var(--color-brand-brown)" fillRule="evenodd" />}
         </svg>
       )}
       <span className={bubbleStyles.text}>{children}</span>

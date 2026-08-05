@@ -3,6 +3,7 @@ import { Coin } from '../../molecules/CoinWallet';
 import { RibbonIcon } from './RibbonIcon';
 import { WobbleBorder } from '../../WobbleBorder';
 import { useElementSize } from '../../useElementSize';
+import { STROKE_FREQUENCY } from '../../strokeDefaults';
 import styles from './InAppPurchaseCard.module.css';
 
 export interface InAppPurchaseCardProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -16,6 +17,10 @@ export interface InAppPurchaseCardProps extends React.ComponentPropsWithoutRef<'
    * triangular arrangement (not a generic N-coin stack).
    */
   featured?: boolean;
+  /** Whether the featured card's hand-drawn border renders at all. Only affects `featured`. @default true */
+  showStroke?: boolean;
+  /** How tightly the hand-drawn border wobbles along its own length — higher reads as a shakier, denser line. Only affects `featured`. @default 0.05 */
+  strokeFrequency?: number;
 }
 
 // Each coin's top-left, relative to the featured card's top-left — lifted
@@ -27,7 +32,19 @@ const FEATURED_COIN_POSITIONS = [
 ];
 
 export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseCardProps>(
-  function InAppPurchaseCard({ coins, price, coinCount = 1, featured = false, className, ...props }, ref) {
+  function InAppPurchaseCard(
+    {
+      coins,
+      price,
+      coinCount = 1,
+      featured = false,
+      showStroke = true,
+      strokeFrequency = STROKE_FREQUENCY,
+      className,
+      ...props
+    },
+    ref,
+  ) {
     const [setRef, size] = useElementSize<HTMLDivElement>(ref);
     if (featured) {
       return (
@@ -46,7 +63,9 @@ export const InAppPurchaseCard = React.forwardRef<HTMLDivElement, InAppPurchaseC
           <span className={styles.featuredAmount}>{coins.toLocaleString()}</span>
           <span className={styles.featuredPrice}>{price}</span>
           {/* Rendered last so it paints above the ribbon graphic, matching the border's own edge. */}
-          <WobbleBorder width={size.width} height={size.height} radius={10} seed={9} />
+          {showStroke && (
+            <WobbleBorder width={size.width} height={size.height} radius={10} seed={9} frequency={strokeFrequency} />
+          )}
         </div>
       );
     }
